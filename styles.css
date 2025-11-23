@@ -52,11 +52,11 @@ body {
     margin: 0 auto;
 }
 
-/* Header */
 .header {
     text-align: center;
     margin-bottom: 40px;
     position: relative;
+    padding: 0 60px; /* Espacio para el botón atrás */
 }
 
 .header h1 {
@@ -2584,7 +2584,17 @@ body.girl-theme .floating-action-btn:hover {
     }
 
     .header h2 {
-        font-size: 1.5rem;
+        font-size: 1.35rem;
+        padding: 0 10px;
+    }
+
+    .header {
+        padding: 0 50px; /* Reducir padding lateral en móvil */
+    }
+
+    .back-btn {
+        font-size: 0.9rem;
+        padding: 6px;
     }
 
     .gender-btn {
