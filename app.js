@@ -12,13 +12,13 @@ const appState = {
 
 // Configuración de Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyBabyShowerDemo123456789",
-    authDomain: "baby-shower-demo.firebaseapp.com",
-    databaseURL: "https://baby-shower-invitations-default-rtdb.firebaseio.com",
-    projectId: "baby-shower-demo",
-    storageBucket: "baby-shower-demo.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef123456"
+    apiKey: "AIzaSyCSBvbnd1u3xJ0C0uWieRI_Yqc3zzPO_kk",
+    authDomain: "baby-shower-app-1c029.firebaseapp.com",
+    databaseURL: "https://baby-shower-app-1c029-default-rtdb.firebaseio.com",
+    projectId: "baby-shower-app-1c029",
+    storageBucket: "baby-shower-app-1c029.firebasestorage.app",
+    messagingSenderId: "475479297496",
+    appId: "1:475479297496:web:e09c0c7f28a2ec857576ad"
 };
 
 // Inicializar Firebase
