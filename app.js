@@ -148,8 +148,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verificar si hay parámetros en la URL (modo invitado)
     const urlParams = new URLSearchParams(window.location.search);
     const invitationId = urlParams.get('id');
+    const encodedData = urlParams.get('data');
     
-    if (invitationId) {
+    if (encodedData) {
+        // Nuevo método: datos en la URL
+        try {
+            const decodedData = JSON.parse(decodeURIComponent(atob(encodedData)));
+            loadGuestViewWithData(decodedData);
+        } catch (error) {
+            console.error('Error al decodificar datos:', error);
+            showInvitationNotFound();
+        }
+    } else if (invitationId) {
+        // Método antiguo: localStorage
         loadGuestView(invitationId);
     } else {
         initAdminView();
@@ -433,12 +444,13 @@ function showPreview() {
     
     previewCard.innerHTML = generateAdminPreviewHTML(data);
     
-    // Generar enlace - asegurando que funcione en GitHub Pages
+    // Generar enlace con datos codificados en base64
+    const encodedData = btoa(encodeURIComponent(JSON.stringify(data)));
     let baseUrl = window.location.href.split('?')[0];
     if (baseUrl.endsWith('/')) {
         baseUrl = baseUrl.slice(0, -1);
     }
-    const shareLink = `${baseUrl}?id=${appState.invitationId}`;
+    const shareLink = `${baseUrl}?data=${encodedData}`;
     document.getElementById('shareLink').value = shareLink;
     
     nextScreen('previewScreen');
@@ -806,21 +818,30 @@ function loadGuestView(invitationId) {
     const data = localStorage.getItem(`invitation_${invitationId}`);
     
     if (!data) {
-        document.body.innerHTML = `
-            <div style="text-align: center; padding: 40px;">
-                <h1>😔 Invitación no encontrada</h1>
-                <p>Lo sentimos, no pudimos encontrar esta invitación.</p>
-            </div>
-        `;
+        showInvitationNotFound();
         return;
     }
 
-    // Guardar datos para acceso en pestañas
-    appState.guestInvitationData = data;
-
     const invitationData = JSON.parse(data);
+    loadGuestViewWithData(invitationData);
+}
+
+// Función auxiliar para mostrar error
+function showInvitationNotFound() {
+    document.body.innerHTML = `
+        <div style="text-align: center; padding: 40px; font-family: Arial, sans-serif;">
+            <h1 style="font-size: 3rem;">😔</h1>
+            <h2>Invitación no encontrada</h2>
+            <p style="color: #666;">Lo sentimos, no pudimos encontrar esta invitación.</p>
+            <p style="color: #999; font-size: 0.9rem; margin-top: 20px;">El enlace puede estar incompleto o haber expirado.</p>
+        </div>
+    `;
+}
+
+// Cargar vista de invitado con datos directos
+function loadGuestViewWithData(invitationData) {
+    // Guardar datos para acceso en pestañas
     appState.invitationData = invitationData;
-    appState.invitationId = invitationId;
 
     // Aplicar tema
     document.body.className = invitationData.gender === 'M' ? 'boy-theme' : 'girl-theme';
