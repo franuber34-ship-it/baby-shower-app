@@ -823,6 +823,44 @@ body.girl-theme .form-control:focus {
     gap: 14px;
 }
 
+.map-preview {
+    margin: 16px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.pac-container {
+    border-radius: 8px;
+    border-top: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin-top: 4px;
+    font-family: inherit;
+    z-index: 10000;
+}
+
+.pac-item {
+    padding: 12px;
+    border-top: 1px solid #e5e7eb;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.pac-item:hover {
+    background-color: #f3f4f6;
+}
+
+.pac-icon {
+    margin-right: 12px;
+}
+
+.pac-item-query {
+    font-weight: 500;
+    color: #1f2937;
+}
+
 @media (max-width: 640px) {
     .date-time-modern {
         grid-template-columns: 1fr;

@@ -1331,3 +1331,123 @@ function showSection(sectionId) {
         btn.classList.add('active');
     }
 }
+
+// Google Maps Autocomplete
+let autocomplete;
+let map;
+let marker;
+let selectedPlace = null;
+
+function initAutocomplete() {
+    console.log('Inicializando Google Maps Autocomplete');
+    
+    const addressInput = document.getElementById('address');
+    if (!addressInput) {
+        console.log('Input de dirección no encontrado aún');
+        return;
+    }
+
+    // Crear autocomplete
+    autocomplete = new google.maps.places.Autocomplete(addressInput, {
+        types: ['address'],
+        fields: ['formatted_address', 'geometry', 'name', 'place_id']
+    });
+
+    // Listener cuando se selecciona un lugar
+    autocomplete.addListener('place_changed', function() {
+        const place = autocomplete.getPlace();
+        
+        if (!place.geometry) {
+            console.log('No se encontró geometría para: ' + place.name);
+            return;
+        }
+
+        selectedPlace = place;
+        
+        // Actualizar el input con la dirección formateada
+        addressInput.value = place.formatted_address || place.name;
+        
+        // Mostrar y actualizar el mapa
+        showMapPreview(place);
+        
+        // Generar enlaces automáticamente
+        generateMapLinks(place);
+    });
+
+    // Inicializar el mapa (oculto inicialmente)
+    const mapElement = document.getElementById('map');
+    if (mapElement) {
+        map = new google.maps.Map(mapElement, {
+            zoom: 15,
+            center: { lat: -34.397, lng: 150.644 },
+            mapTypeControl: false,
+            streetViewControl: false,
+            fullscreenControl: true
+        });
+        
+        marker = new google.maps.Marker({
+            map: map,
+            anchorPoint: new google.maps.Point(0, -29)
+        });
+    }
+}
+
+function showMapPreview(place) {
+    const mapPreview = document.getElementById('mapPreview');
+    if (!mapPreview || !map || !marker) return;
+    
+    mapPreview.style.display = 'block';
+    
+    // Centrar el mapa en la ubicación
+    if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+    } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);
+    }
+    
+    // Colocar el marcador
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+    
+    // Trigger resize para asegurar que el mapa se renderice correctamente
+    setTimeout(() => {
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(place.geometry.location);
+    }, 100);
+}
+
+function generateMapLinks(place) {
+    const googleMapsLinkInput = document.getElementById('googleMapsLink');
+    const wazeLinkInput = document.getElementById('wazeLink');
+    
+    if (!place || !place.geometry) return;
+    
+    const lat = place.geometry.location.lat();
+    const lng = place.geometry.location.lng();
+    const address = encodeURIComponent(place.formatted_address || place.name);
+    
+    // Generar enlace de Google Maps
+    if (googleMapsLinkInput) {
+        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}&query_place_id=${place.place_id}`;
+        googleMapsLinkInput.value = googleMapsUrl;
+    }
+    
+    // Generar enlace de Waze
+    if (wazeLinkInput) {
+        const wazeUrl = `https://waze.com/ul?ll=${lat},${lng}&navigate=yes&q=${address}`;
+        wazeLinkInput.value = wazeUrl;
+    }
+}
+
+// Asegurar que initAutocomplete se llame cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAutocomplete);
+} else {
+    initAutocomplete();
+}
+
+// También intentar inicializar cuando cambie a la pantalla de detalles
+window.addEventListener('load', function() {
+    setTimeout(initAutocomplete, 500);
+});
