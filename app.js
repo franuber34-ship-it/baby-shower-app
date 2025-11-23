@@ -158,13 +158,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (encodedData) {
         // Nuevo método: datos en la URL
         console.log('Intentando decodificar datos de URL...');
+        console.log('encodedData length:', encodedData.length);
         try {
-            const decodedData = JSON.parse(decodeURIComponent(atob(encodedData)));
+            // Decodificar desde base64 con soporte para Unicode
+            const jsonString = decodeURIComponent(escape(atob(encodedData)));
+            console.log('JSON decodificado (tamaño):', jsonString.length);
+            const decodedData = JSON.parse(jsonString);
             console.log('Datos decodificados correctamente:', decodedData);
             loadGuestViewWithData(decodedData);
         } catch (error) {
             console.error('Error al decodificar datos:', error);
-            console.error('encodedData length:', encodedData?.length);
+            console.error('Error completo:', error.message);
             showInvitationNotFound();
         }
     } else if (invitationId) {
@@ -457,7 +461,8 @@ function showPreview() {
     const jsonString = JSON.stringify(data);
     console.log('Datos originales (tamaño):', jsonString.length, 'caracteres');
     
-    const encodedData = btoa(encodeURIComponent(jsonString));
+    // Codificar a base64 con soporte para Unicode
+    const encodedData = btoa(unescape(encodeURIComponent(jsonString)));
     console.log('Datos codificados (tamaño):', encodedData.length, 'caracteres');
     
     let baseUrl = window.location.href.split('?')[0];
