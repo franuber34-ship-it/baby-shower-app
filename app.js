@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verificar si hay parámetros en la URL (modo invitado)
     const urlParams = new URLSearchParams(window.location.search);
     const invitationId = urlParams.get('id');
-    const encodedData = urlParams.get('data');
+    let encodedData = urlParams.get('data');
     
     console.log('URL completa:', window.location.href);
     console.log('Parámetros URL:', window.location.search);
@@ -160,15 +160,24 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Intentando decodificar datos de URL...');
         console.log('encodedData length:', encodedData.length);
         try {
-            // Decodificar desde base64 con soporte para Unicode
-            const jsonString = decodeURIComponent(escape(atob(encodedData)));
+            // Decodificar correctamente desde base64 con soporte Unicode
+            const jsonString = decodeURIComponent(atob(encodedData).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
             console.log('JSON decodificado (tamaño):', jsonString.length);
             const decodedData = JSON.parse(jsonString);
-            console.log('Datos decodificados correctamente:', decodedData);
+            console.log('✅ Datos decodificados correctamente');
             loadGuestViewWithData(decodedData);
         } catch (error) {
-            console.error('Error al decodificar datos:', error);
+            console.error('❌ Error al decodificar datos:', error);
             console.error('Error completo:', error.message);
+            
+            // Mostrar información útil para debug
+            if (encodedData) {
+                console.log('Primeros 100 caracteres de encodedData:', encodedData.substring(0, 100));
+                console.log('Últimos 100 caracteres de encodedData:', encodedData.substring(encodedData.length - 100));
+            }
+            
             showInvitationNotFound();
         }
     } else if (invitationId) {
@@ -461,8 +470,11 @@ function showPreview() {
     const jsonString = JSON.stringify(data);
     console.log('Datos originales (tamaño):', jsonString.length, 'caracteres');
     
-    // Codificar a base64 con soporte para Unicode
-    const encodedData = btoa(unescape(encodeURIComponent(jsonString)));
+    // Codificar correctamente con soporte Unicode
+    const encodedData = btoa(encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g,
+        function(match, p1) {
+            return String.fromCharCode('0x' + p1);
+        }));
     console.log('Datos codificados (tamaño):', encodedData.length, 'caracteres');
     
     let baseUrl = window.location.href.split('?')[0];
