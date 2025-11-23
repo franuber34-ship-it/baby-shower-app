@@ -10,6 +10,27 @@ const appState = {
     guestInvitationData: null
 };
 
+// Configuración de Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBabyShowerDemo123456789",
+    authDomain: "baby-shower-demo.firebaseapp.com",
+    databaseURL: "https://baby-shower-invitations-default-rtdb.firebaseio.com",
+    projectId: "baby-shower-demo",
+    storageBucket: "baby-shower-demo.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef123456"
+};
+
+// Inicializar Firebase
+let database;
+try {
+    firebase.initializeApp(firebaseConfig);
+    database = firebase.database();
+    console.log('✅ Firebase inicializado correctamente');
+} catch (error) {
+    console.error('❌ Error al inicializar Firebase:', error);
+}
+
 // Paletas de colores según género
 const colorPalettes = {
     M: [
@@ -148,42 +169,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verificar si hay parámetros en la URL (modo invitado)
     const urlParams = new URLSearchParams(window.location.search);
     const invitationId = urlParams.get('id');
-    let encodedData = urlParams.get('data');
     
     console.log('URL completa:', window.location.href);
     console.log('Parámetros URL:', window.location.search);
-    console.log('encodedData existe:', !!encodedData);
-    console.log('invitationId existe:', !!invitationId);
+    console.log('invitationId:', invitationId);
     
-    if (encodedData) {
-        // Nuevo método: datos en la URL
-        console.log('Intentando decodificar datos de URL...');
-        console.log('encodedData length:', encodedData.length);
-        try {
-            // Decodificar correctamente desde base64 con soporte Unicode
-            const jsonString = decodeURIComponent(atob(encodedData).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            console.log('JSON decodificado (tamaño):', jsonString.length);
-            const decodedData = JSON.parse(jsonString);
-            console.log('✅ Datos decodificados correctamente');
-            loadGuestViewWithData(decodedData);
-        } catch (error) {
-            console.error('❌ Error al decodificar datos:', error);
-            console.error('Error completo:', error.message);
-            
-            // Mostrar información útil para debug
-            if (encodedData) {
-                console.log('Primeros 100 caracteres de encodedData:', encodedData.substring(0, 100));
-                console.log('Últimos 100 caracteres de encodedData:', encodedData.substring(encodedData.length - 100));
-            }
-            
-            showInvitationNotFound();
-        }
-    } else if (invitationId) {
-        // Método antiguo: localStorage
-        console.log('Usando método localStorage con ID:', invitationId);
-        loadGuestView(invitationId);
+    if (invitationId) {
+        // Cargar desde Firebase
+        loadGuestViewFromFirebase(invitationId);
     } else {
         initAdminView();
     }
@@ -460,34 +453,41 @@ function generateId() {
 }
 
 // Mostrar vista previa
-function showPreview() {
+async function showPreview() {
     const data = appState.invitationData;
     const previewCard = document.getElementById('previewCard');
     
-    previewCard.innerHTML = generateAdminPreviewHTML(data);
+    previewCard.innerHTML = '<div style="text-align: center; padding: 40px;"><p>Guardando invitación...</p></div>';
     
-    // Generar enlace con datos codificados en base64
-    const jsonString = JSON.stringify(data);
-    console.log('Datos originales (tamaño):', jsonString.length, 'caracteres');
-    
-    // Codificar correctamente con soporte Unicode
-    const encodedData = btoa(encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g,
-        function(match, p1) {
-            return String.fromCharCode('0x' + p1);
-        }));
-    console.log('Datos codificados (tamaño):', encodedData.length, 'caracteres');
-    
-    let baseUrl = window.location.href.split('?')[0];
-    if (baseUrl.endsWith('/')) {
-        baseUrl = baseUrl.slice(0, -1);
+    try {
+        // Generar ID único
+        const invitationId = generateId();
+        
+        // Guardar en Firebase
+        await database.ref('invitations/' + invitationId).set(data);
+        console.log('✅ Invitación guardada en Firebase con ID:', invitationId);
+        
+        // También guardar en localStorage como backup
+        localStorage.setItem(`invitation_${invitationId}`, JSON.stringify(data));
+        
+        // Generar enlace CORTO
+        let baseUrl = window.location.href.split('?')[0];
+        if (baseUrl.endsWith('/')) {
+            baseUrl = baseUrl.slice(0, -1);
+        }
+        const shareLink = `${baseUrl}?id=${invitationId}`;
+        console.log('🔗 Enlace generado (tamaño):', shareLink.length, 'caracteres');
+        
+        document.getElementById('shareLink').value = shareLink;
+        
+        // Mostrar vista previa
+        previewCard.innerHTML = generateAdminPreviewHTML(data);
+        
+        nextScreen('previewScreen');
+    } catch (error) {
+        console.error('❌ Error al guardar en Firebase:', error);
+        alert('Error al guardar la invitación. Por favor, intenta de nuevo.');
     }
-    const shareLink = `${baseUrl}?data=${encodedData}`;
-    console.log('Enlace generado (tamaño total):', shareLink.length, 'caracteres');
-    console.log('URL base:', baseUrl);
-    
-    document.getElementById('shareLink').value = shareLink;
-    
-    nextScreen('previewScreen');
 }
 
 // Generar HTML de vista previa para el administrador
@@ -848,6 +848,28 @@ function loadGuestLocation() {
 }
 
 // Vista de invitado
+// Cargar invitación desde Firebase
+async function loadGuestViewFromFirebase(invitationId) {
+    console.log('🔥 Cargando invitación desde Firebase:', invitationId);
+    
+    try {
+        const snapshot = await database.ref('invitations/' + invitationId).once('value');
+        const data = snapshot.val();
+        
+        if (data) {
+            console.log('✅ Invitación encontrada en Firebase');
+            loadGuestViewWithData(data);
+        } else {
+            console.error('❌ Invitación no encontrada en Firebase');
+            showInvitationNotFound();
+        }
+    } catch (error) {
+        console.error('❌ Error al cargar desde Firebase:', error);
+        showInvitationNotFound();
+    }
+}
+
+// Cargar invitación del localStorage (método antiguo, mantener como backup)
 function loadGuestView(invitationId) {
     const data = localStorage.getItem(`invitation_${invitationId}`);
     
