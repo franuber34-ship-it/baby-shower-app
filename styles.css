@@ -907,6 +907,65 @@ body.girl-theme .radio-option:has(input:checked) {
     width: 100%;
 }
 
+/* Botón flotante fijo en la parte superior */
+.floating-action-btn {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 560px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.floating-action-btn:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 6px 24px rgba(59, 130, 246, 0.5);
+}
+
+.floating-action-btn:active {
+    transform: translateX(-50%) scale(0.98);
+}
+
+/* Ajustar padding del contenedor cuando hay botón flotante */
+.screen.has-floating-btn .container {
+    padding-top: 90px;
+}
+
+/* Temas para niño/niña en botón flotante */
+body.boy-theme .floating-action-btn {
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+}
+
+body.girl-theme .floating-action-btn {
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4);
+}
+
+body.boy-theme .floating-action-btn:hover {
+    box-shadow: 0 6px 24px rgba(59, 130, 246, 0.5);
+}
+
+body.girl-theme .floating-action-btn:hover {
+    box-shadow: 0 6px 24px rgba(236, 72, 153, 0.5);
+}
+
 .submit-btn {
     flex: 1;
     min-width: 200px;
