@@ -677,6 +677,11 @@ function shareWhatsApp() {
     const link = document.getElementById('shareLink').value;
     const data = appState.invitationData;
     
+    if (!link || link.trim() === '') {
+        alert('Error: No se ha generado el enlace de invitación');
+        return;
+    }
+    
     const message = `🎉 ¡Estás invitado al Baby Shower de ${data.babyName}! 🍼\n\n` +
                    `👶 ${data.fatherName} y ${data.motherName}\n` +
                    `📅 ${data.eventDate}\n` +
@@ -685,8 +690,14 @@ function shareWhatsApp() {
     
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     
-    // Intentar abrir WhatsApp directamente
-    window.location.href = whatsappUrl;
+    // Crear enlace temporal y hacer clic
+    const tempLink = document.createElement('a');
+    tempLink.href = whatsappUrl;
+    tempLink.target = '_blank';
+    tempLink.rel = 'noopener noreferrer';
+    document.body.appendChild(tempLink);
+    tempLink.click();
+    document.body.removeChild(tempLink);
 }
 
 // Cambiar pestaña del invitado
