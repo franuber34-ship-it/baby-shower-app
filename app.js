@@ -736,14 +736,30 @@ function shareWhatsApp() {
     
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     
-    // Crear enlace temporal y hacer clic
-    const tempLink = document.createElement('a');
-    tempLink.href = whatsappUrl;
-    tempLink.target = '_blank';
-    tempLink.rel = 'noopener noreferrer';
-    document.body.appendChild(tempLink);
-    tempLink.click();
-    document.body.removeChild(tempLink);
+    console.log('🔗 Abriendo WhatsApp con URL:', whatsappUrl);
+    
+    // Método 1: Intentar abrir directamente (funciona en WebView)
+    try {
+        window.location.href = whatsappUrl;
+        console.log('✅ Método 1: window.location.href ejecutado');
+    } catch (error) {
+        console.error('❌ Método 1 falló:', error);
+        
+        // Método 2: Fallback con enlace temporal
+        try {
+            const tempLink = document.createElement('a');
+            tempLink.href = whatsappUrl;
+            tempLink.target = '_blank';
+            tempLink.rel = 'noopener noreferrer';
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            document.body.removeChild(tempLink);
+            console.log('✅ Método 2: tempLink.click() ejecutado');
+        } catch (error2) {
+            console.error('❌ Método 2 falló:', error2);
+            alert('No se pudo abrir WhatsApp. Por favor, copia el enlace manualmente.');
+        }
+    }
 }
 
 // Cambiar pestaña del invitado
