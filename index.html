@@ -8,8 +8,6 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-    <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&libraries=places&callback=initAutocomplete" async defer></script>
 </head>
 <body>
     <!-- Pantalla de Inicio: Selección de Género -->
@@ -162,10 +160,8 @@
                         </svg>
                         Ubicación
                     </h3>
-                    <input type="text" id="address" placeholder="Buscar dirección del evento..." required autocomplete="off">
-                    <div id="mapPreview" class="map-preview" style="display: none;">
-                        <div id="map" style="width: 100%; height: 250px; border-radius: 8px;"></div>
-                    </div>
+                    <input type="text" id="address" placeholder="Dirección completa del evento" required list="address-suggestions">
+                    <datalist id="address-suggestions"></datalist>
                     <div class="map-links-input">
                         <input type="url" id="googleMapsLink" placeholder="Enlace de Google Maps (opcional)">
                         <input type="url" id="wazeLink" placeholder="Enlace de Waze (opcional)">
