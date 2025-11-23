@@ -685,14 +685,8 @@ function shareWhatsApp() {
     
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     
-    // Abrir WhatsApp
-    if (typeof Android !== 'undefined' && Android.openWhatsApp) {
-        // Si está en Android WebView con interfaz JavaScript
-        Android.openWhatsApp(message);
-    } else {
-        // Navegador web o sin interfaz
-        window.open(whatsappUrl, '_blank');
-    }
+    // Intentar abrir WhatsApp directamente
+    window.location.href = whatsappUrl;
 }
 
 // Cambiar pestaña del invitado
