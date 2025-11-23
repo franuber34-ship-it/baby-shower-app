@@ -907,10 +907,10 @@ body.girl-theme .radio-option:has(input:checked) {
     width: 100%;
 }
 
-/* Botón flotante fijo en la parte superior */
+/* Botón flotante fijo en la parte inferior */
 .floating-action-btn {
     position: fixed;
-    top: 20px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 40px);
@@ -944,7 +944,7 @@ body.girl-theme .radio-option:has(input:checked) {
 
 /* Ajustar padding del contenedor cuando hay botón flotante */
 .screen.has-floating-btn .container {
-    padding-top: 90px;
+    padding-bottom: 90px;
 }
 
 /* Temas para niño/niña en botón flotante */
