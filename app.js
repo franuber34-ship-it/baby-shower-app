@@ -150,17 +150,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const invitationId = urlParams.get('id');
     const encodedData = urlParams.get('data');
     
+    console.log('URL completa:', window.location.href);
+    console.log('Parámetros URL:', window.location.search);
+    console.log('encodedData existe:', !!encodedData);
+    console.log('invitationId existe:', !!invitationId);
+    
     if (encodedData) {
         // Nuevo método: datos en la URL
+        console.log('Intentando decodificar datos de URL...');
         try {
             const decodedData = JSON.parse(decodeURIComponent(atob(encodedData)));
+            console.log('Datos decodificados correctamente:', decodedData);
             loadGuestViewWithData(decodedData);
         } catch (error) {
             console.error('Error al decodificar datos:', error);
+            console.error('encodedData length:', encodedData?.length);
             showInvitationNotFound();
         }
     } else if (invitationId) {
         // Método antiguo: localStorage
+        console.log('Usando método localStorage con ID:', invitationId);
         loadGuestView(invitationId);
     } else {
         initAdminView();
@@ -445,12 +454,20 @@ function showPreview() {
     previewCard.innerHTML = generateAdminPreviewHTML(data);
     
     // Generar enlace con datos codificados en base64
-    const encodedData = btoa(encodeURIComponent(JSON.stringify(data)));
+    const jsonString = JSON.stringify(data);
+    console.log('Datos originales (tamaño):', jsonString.length, 'caracteres');
+    
+    const encodedData = btoa(encodeURIComponent(jsonString));
+    console.log('Datos codificados (tamaño):', encodedData.length, 'caracteres');
+    
     let baseUrl = window.location.href.split('?')[0];
     if (baseUrl.endsWith('/')) {
         baseUrl = baseUrl.slice(0, -1);
     }
     const shareLink = `${baseUrl}?data=${encodedData}`;
+    console.log('Enlace generado (tamaño total):', shareLink.length, 'caracteres');
+    console.log('URL base:', baseUrl);
+    
     document.getElementById('shareLink').value = shareLink;
     
     nextScreen('previewScreen');
