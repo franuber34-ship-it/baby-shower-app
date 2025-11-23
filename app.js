@@ -1121,49 +1121,29 @@ function generateGuestInvitationHTML(data) {
                     </svg>
                     <p>${data.address}</p>
                 </div>
-                ${data.googleMapsLink ? `
-                    <div class="map-container">
-                        <iframe 
-                            src="https://maps.google.com/maps?q=${encodeURIComponent(data.address)}&output=embed"
-                            width="100%" 
-                            height="300" 
-                            style="border:0; border-radius: 8px;" 
-                            allowfullscreen="" 
-                            loading="lazy">
-                        </iframe>
-                    </div>
-                ` : ''}
+                <div class="map-container">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=${encodeURIComponent(data.address)}&output=embed"
+                        width="100%" 
+                        height="300" 
+                        style="border:0; border-radius: 8px;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
                 <div class="location-buttons">
-                    ${data.googleMapsLink ? `
-                        <a href="${data.googleMapsLink}" target="_blank" class="location-btn maps">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                            </svg>
-                            Abrir en Google Maps
-                        </a>
-                    ` : `
-                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.address)}" target="_blank" class="location-btn maps">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                            </svg>
-                            Abrir en Google Maps
-                        </a>
-                    `}
-                    ${data.wazeLink ? `
-                        <a href="${data.wazeLink}" target="_blank" class="location-btn waze">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                            </svg>
-                            Abrir en Waze
-                        </a>
-                    ` : `
-                        <a href="https://waze.com/ul?q=${encodeURIComponent(data.address)}" target="_blank" class="location-btn waze">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                            </svg>
-                            Abrir en Waze
-                        </a>
-                    `}
+                    <a href="${data.googleMapsLink || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.address)}`}" target="_blank" class="location-btn maps">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        Abrir en Google Maps
+                    </a>
+                    <a href="${data.wazeLink || `https://waze.com/ul?q=${encodeURIComponent(data.address)}&navigate=yes`}" target="_blank" class="location-btn waze">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        Abrir en Waze
+                    </a>
                 </div>
             </div>
 
@@ -1332,59 +1312,5 @@ function showSection(sectionId) {
     }
 }
 
-// Generar enlaces automáticos de mapas cuando el usuario ingrese una dirección
-document.addEventListener('DOMContentLoaded', function() {
-    const addressInput = document.getElementById('address');
-    const googleMapsLinkInput = document.getElementById('googleMapsLink');
-    const wazeLinkInput = document.getElementById('wazeLink');
-    
-    if (addressInput && googleMapsLinkInput && wazeLinkInput) {
-        // Generar enlaces automáticamente mientras el usuario escribe
-        let typingTimer;
-        const typingDelay = 500; // medio segundo después de dejar de escribir
-        
-        addressInput.addEventListener('input', function() {
-            clearTimeout(typingTimer);
-            const address = this.value.trim();
-            
-            if (address.length > 3) {
-                typingTimer = setTimeout(function() {
-                    generateMapLinksFromAddress(address);
-                }, typingDelay);
-            } else {
-                // Limpiar enlaces si la dirección es muy corta
-                googleMapsLinkInput.value = '';
-                wazeLinkInput.value = '';
-            }
-        });
-        
-        // También generar al perder el foco
-        addressInput.addEventListener('blur', function() {
-            const address = this.value.trim();
-            if (address.length > 3) {
-                generateMapLinksFromAddress(address);
-            }
-        });
-    }
-});
-
-function generateMapLinksFromAddress(address) {
-    const googleMapsLinkInput = document.getElementById('googleMapsLink');
-    const wazeLinkInput = document.getElementById('wazeLink');
-    
-    if (!address) return;
-    
-    const encodedAddress = encodeURIComponent(address);
-    
-    // Generar enlace de Google Maps (siempre actualizar)
-    if (googleMapsLinkInput) {
-        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
-        googleMapsLinkInput.value = googleMapsUrl;
-    }
-    
-    // Generar enlace de Waze (siempre actualizar)
-    if (wazeLinkInput) {
-        const wazeUrl = `https://waze.com/ul?q=${encodedAddress}&navigate=yes`;
-        wazeLinkInput.value = wazeUrl;
-    }
-}
+// El sistema de mapas ya no genera enlaces automáticamente
+// Los usuarios ingresan manualmente los enlaces si los tienen
