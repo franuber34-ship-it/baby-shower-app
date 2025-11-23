@@ -1646,6 +1646,24 @@ body.girl-theme .floating-action-btn:hover {
     animation: iconBounce 0.6s ease;
 }
 
+/* Contador de confirmaciones */
+.confirmation-counter {
+    padding: 12px 20px;
+    background: var(--bg-light);
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 500;
+}
+
+.confirmation-counter span {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-right: 4px;
+}
+
 @keyframes iconBounce {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.2); }
@@ -1667,13 +1685,13 @@ body.girl-theme .floating-action-btn:hover {
 
 .guest-card-header {
     position: relative;
-    padding: 80px 32px 60px;
+    padding: 40px 24px 32px;
     border-radius: 0;
     text-align: center;
     color: var(--white);
     overflow: hidden;
     box-shadow: none;
-    min-height: 400px;
+    min-height: 280px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1913,9 +1931,9 @@ body.girl-theme .floating-action-btn:hover {
 }
 
 .guest-card-header .gender-icon-large {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 24px;
+    width: 70px;
+    height: 70px;
+    margin-bottom: 16px;
     filter: drop-shadow(0 8px 24px rgba(0,0,0,0.2));
     animation: iconBreathe 3s ease-in-out infinite;
     position: relative;
@@ -1935,10 +1953,10 @@ body.girl-theme .floating-action-btn:hover {
 }
 
 .guest-card-header h1 {
-    font-size: 2.8rem;
+    font-size: 2rem;
     font-weight: 300;
-    letter-spacing: 2px;
-    margin: 0 0 32px 0;
+    letter-spacing: 1px;
+    margin: 0 0 20px 0;
     text-shadow: 
         0 4px 12px rgba(0,0,0,0.15),
         0 0 30px rgba(255,255,255,0.3);
@@ -2142,11 +2160,71 @@ body.girl-theme .floating-action-btn:hover {
 
 .invitation-message-section {
     margin-bottom: 0;
-    padding: 40px 32px;
+    padding: 48px 32px;
     background: var(--white);
     border-radius: 0;
     border-left: none;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    text-align: center;
+}
+
+/* Corazón grande para mensaje */
+.heart-icon-large {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+    animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+.heart-icon-large svg {
+    color: var(--primary-color);
+    opacity: 0.9;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+}
+
+/* Título de bienvenida */
+.invitation-welcome {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0 0 32px 0;
+    color: var(--primary-color);
+    font-style: italic;
+}
+
+/* Texto del mensaje de invitación */
+.invitation-message-text {
+    max-width: 600px;
+    margin: 0 auto 32px;
+}
+
+.invitation-message-text p {
+    margin: 0 0 20px 0;
+    line-height: 1.8;
+    color: #475569;
+    font-size: 1.05rem;
+    text-align: center;
+}
+
+.invitation-message-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Fecha destacada al final */
+.event-date-highlight {
+    margin-top: 40px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(var(--primary-color-rgb, 59, 130, 246), 0.05), rgba(var(--primary-color-rgb, 59, 130, 246), 0.1));
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    font-style: italic;
+    line-height: 1.6;
 }
 
 .invitation-message-section h3 {
