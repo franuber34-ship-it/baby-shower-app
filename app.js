@@ -433,8 +433,12 @@ function showPreview() {
     
     previewCard.innerHTML = generateAdminPreviewHTML(data);
     
-    // Generar enlace
-    const shareLink = `${window.location.origin}${window.location.pathname}?id=${appState.invitationId}`;
+    // Generar enlace - asegurando que funcione en GitHub Pages
+    let baseUrl = window.location.href.split('?')[0];
+    if (baseUrl.endsWith('/')) {
+        baseUrl = baseUrl.slice(0, -1);
+    }
+    const shareLink = `${baseUrl}?id=${appState.invitationId}`;
     document.getElementById('shareLink').value = shareLink;
     
     nextScreen('previewScreen');
@@ -672,9 +676,23 @@ function copyLink() {
 function shareWhatsApp() {
     const link = document.getElementById('shareLink').value;
     const data = appState.invitationData;
-    const message = `¡Hola! Estás invitado al Baby Shower de ${data.babyName}. Ver invitación: ${link}`;
+    
+    const message = `🎉 ¡Estás invitado al Baby Shower de ${data.babyName}! 🍼\n\n` +
+                   `👶 ${data.fatherName} y ${data.motherName}\n` +
+                   `📅 ${data.eventDate}\n` +
+                   `🕐 ${data.eventTime}\n\n` +
+                   `Ver invitación completa: ${link}`;
+    
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    
+    // Abrir WhatsApp
+    if (typeof Android !== 'undefined' && Android.openWhatsApp) {
+        // Si está en Android WebView con interfaz JavaScript
+        Android.openWhatsApp(message);
+    } else {
+        // Navegador web o sin interfaz
+        window.open(whatsappUrl, '_blank');
+    }
 }
 
 // Cambiar pestaña del invitado
