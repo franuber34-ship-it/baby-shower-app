@@ -1,3 +1,329 @@
+// Sistema de Internacionalización (i18n)
+const translations = {
+    es: {
+        // Pantalla de género
+        mainTitle: 'Baby Shower',
+        mainSubtitle: 'Crea tu invitación digital',
+        boy: 'Niño',
+        girl: 'Niña',
+        
+        // Pantalla de colores
+        chooseColor: 'Elige el color',
+        back: 'Atrás',
+        continue: 'Continuar',
+        
+        // Pantalla de efectos
+        floatingEffects: 'Efectos Flotantes',
+        effectsDescription: 'Personaliza tu invitación seleccionando hasta 3 efectos decorativos',
+        effectsSelected: 'Efectos seleccionados',
+        selectAtLeastOne: 'Por favor selecciona al menos un efecto',
+        maxEffectsReached: 'Solo puedes seleccionar hasta 3 efectos',
+        
+        // Pantalla de temas
+        invitationStyle: 'Estilo de Invitación',
+        themeDescription: 'Elige el estilo tipográfico que mejor represente tu celebración',
+        selectTheme: 'Por favor selecciona un tema',
+        
+        // Formulario
+        completeInfo: 'Completa la información',
+        whatsappContact: 'WhatsApp de Contacto',
+        whatsappDescription: 'Número donde recibirás las confirmaciones de asistencia',
+        searchCountry: 'Buscar país...',
+        babyInfo: 'Información del Bebé',
+        babyNamePlaceholder: 'Nombre del bebé',
+        parentsInfo: 'Padres',
+        fatherNamePlaceholder: 'Nombre del papá',
+        motherNamePlaceholder: 'Nombre de la mamá',
+        eventDateTime: 'Fecha y Hora del Evento',
+        date: 'Fecha',
+        time: 'Hora',
+        location: 'Ubicación',
+        addressPlaceholder: 'Dirección completa del evento',
+        googleMapsPlaceholder: 'Enlace de Google Maps (opcional)',
+        wazePlaceholder: 'Enlace de Waze (opcional)',
+        invitationMessage: 'Mensaje de Invitación',
+        messagePlaceholder: 'Escribe un mensaje especial para tus invitados...',
+        giftList: 'Lista de Regalos',
+        useDefaultList: 'Usar lista por defecto (10 regalos aleatorios)',
+        addCustomList: 'Agregar mi propia lista',
+        customGiftsPlaceholder: 'Escribe cada regalo en una línea nueva\nEjemplo:\nPañales\nBiberón\nRopa de bebé',
+        generateInvitation: 'Generar Invitación',
+        
+        // Vista previa
+        invitationReady: '¡Tu invitación está lista!',
+        copyLink: 'Copiar Enlace',
+        linkCopied: '✓ Copiado!',
+        shareWhatsApp: 'Compartir por WhatsApp',
+        createNew: 'Crear Nueva Invitación',
+        
+        // Vista de invitado
+        itsABoy: '¡Es un niño!',
+        itsAGirl: '¡Es una niña!',
+        futurePparents: 'Los futuros papás',
+        inviteYouToCelebrate: 'Te invitan a celebrar la llegada de',
+        message: 'Mensaje',
+        gifts: 'Regalos',
+        confirm: 'Confirmar',
+        youreInvited: '¡Estás Invitado!',
+        seeYouOn: '¡Esperamos verte el',
+        toCelebrate: 'para celebrar juntos este hermoso comienzo!',
+        suggestedGifts: 'Lista de Regalos Sugeridos',
+        selectGiftsToGive: 'Selecciona los regalos que deseas obsequiar',
+        giftsSelected: 'Regalos seleccionados',
+        confirmAttendance: 'Confirmar Asistencia',
+        fullName: 'Nombre completo',
+        phone: 'Teléfono',
+        howManyPeople: '¿Cuántas personas asistirán?',
+        messageForParents: 'Mensaje para los papás (opcional)',
+        confirmButton: 'Confirmar Asistencia',
+        thanksForConfirming: '¡Gracias por confirmar! Se abrió WhatsApp para enviar tu confirmación.',
+        peopleConfirmed: 'personas confirmadas',
+        
+        // Mensajes
+        selectColor: 'Por favor selecciona un color',
+        errorGenerating: 'Error al guardar la invitación. Por favor, intenta de nuevo.',
+        savingInvitation: 'Guardando invitación...',
+        phoneValidation: 'El número debe tener',
+        digitsFor: 'dígitos para',
+        invitationNotFound: 'Invitación no encontrada',
+        invitationNotFoundDesc: 'Lo sentimos, no pudimos encontrar esta invitación.',
+        linkIncomplete: 'El enlace puede estar incompleto o haber expirado.',
+        
+        // Nombres de meses (para fechas)
+        months: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+        days: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
+    },
+    en: {
+        // Gender screen
+        mainTitle: 'Baby Shower',
+        mainSubtitle: 'Create your digital invitation',
+        boy: 'Boy',
+        girl: 'Girl',
+        
+        // Color screen
+        chooseColor: 'Choose the color',
+        back: 'Back',
+        continue: 'Continue',
+        
+        // Effects screen
+        floatingEffects: 'Floating Effects',
+        effectsDescription: 'Customize your invitation by selecting up to 3 decorative effects',
+        effectsSelected: 'Selected effects',
+        selectAtLeastOne: 'Please select at least one effect',
+        maxEffectsReached: 'You can only select up to 3 effects',
+        
+        // Theme screen
+        invitationStyle: 'Invitation Style',
+        themeDescription: 'Choose the typography style that best represents your celebration',
+        selectTheme: 'Please select a theme',
+        
+        // Form
+        completeInfo: 'Complete the information',
+        whatsappContact: 'WhatsApp Contact',
+        whatsappDescription: 'Number where you will receive attendance confirmations',
+        searchCountry: 'Search country...',
+        babyInfo: 'Baby Information',
+        babyNamePlaceholder: "Baby's name",
+        parentsInfo: 'Parents',
+        fatherNamePlaceholder: "Father's name",
+        motherNamePlaceholder: "Mother's name",
+        eventDateTime: 'Event Date and Time',
+        date: 'Date',
+        time: 'Time',
+        location: 'Location',
+        addressPlaceholder: 'Full event address',
+        googleMapsPlaceholder: 'Google Maps link (optional)',
+        wazePlaceholder: 'Waze link (optional)',
+        invitationMessage: 'Invitation Message',
+        messagePlaceholder: 'Write a special message for your guests...',
+        giftList: 'Gift List',
+        useDefaultList: 'Use default list (10 random gifts)',
+        addCustomList: 'Add my own list',
+        customGiftsPlaceholder: 'Write each gift on a new line\nExample:\nDiapers\nBaby bottle\nBaby clothes',
+        generateInvitation: 'Generate Invitation',
+        
+        // Preview
+        invitationReady: 'Your invitation is ready!',
+        copyLink: 'Copy Link',
+        linkCopied: '✓ Copied!',
+        shareWhatsApp: 'Share on WhatsApp',
+        createNew: 'Create New Invitation',
+        
+        // Guest view
+        itsABoy: "It's a Boy!",
+        itsAGirl: "It's a Girl!",
+        futurePparents: 'The future parents',
+        inviteYouToCelebrate: 'invite you to celebrate the arrival of',
+        message: 'Message',
+        gifts: 'Gifts',
+        confirm: 'Confirm',
+        youreInvited: "You're Invited!",
+        seeYouOn: 'We hope to see you on',
+        toCelebrate: 'to celebrate together this beautiful beginning!',
+        suggestedGifts: 'Suggested Gift List',
+        selectGiftsToGive: 'Select the gifts you wish to give',
+        giftsSelected: 'Selected gifts',
+        confirmAttendance: 'Confirm Attendance',
+        fullName: 'Full name',
+        phone: 'Phone',
+        howManyPeople: 'How many people will attend?',
+        messageForParents: 'Message for the parents (optional)',
+        confirmButton: 'Confirm Attendance',
+        thanksForConfirming: 'Thanks for confirming! WhatsApp has been opened to send your confirmation.',
+        peopleConfirmed: 'people confirmed',
+        
+        // Messages
+        selectColor: 'Please select a color',
+        errorGenerating: 'Error saving invitation. Please try again.',
+        savingInvitation: 'Saving invitation...',
+        phoneValidation: 'The number must have',
+        digitsFor: 'digits for',
+        invitationNotFound: 'Invitation not found',
+        invitationNotFoundDesc: "We're sorry, we couldn't find this invitation.",
+        linkIncomplete: 'The link may be incomplete or expired.',
+        
+        // Month names (for dates)
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    }
+};
+
+// Estado del idioma actual
+let currentLanguage = 'es';
+
+// Función para obtener traducción
+function t(key) {
+    return translations[currentLanguage][key] || translations['es'][key] || key;
+}
+
+// Detectar idioma del navegador
+function detectBrowserLanguage() {
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang.startsWith('en')) {
+        return 'en';
+    } else if (browserLang.startsWith('es')) {
+        return 'es';
+    }
+    return 'es'; // Español por defecto
+}
+
+// Cambiar idioma
+function changeLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('babyShowerLanguage', lang);
+    updateUILanguage();
+}
+
+// Actualizar UI con el idioma actual
+function updateUILanguage() {
+    // Actualizar todos los elementos con data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            if (element.placeholder !== undefined) {
+                element.placeholder = t(key);
+            }
+        } else {
+            element.textContent = t(key);
+        }
+    });
+    
+    // Actualizar placeholders con data-i18n-placeholder
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        element.placeholder = t(key);
+    });
+    
+    // Actualizar botón de idioma
+    const langBtn = document.getElementById('currentLanguage');
+    if (langBtn) {
+        langBtn.textContent = currentLanguage === 'es' ? '🇪🇸 ES' : '🇺🇸 EN';
+    }
+}
+
+// Lista completa de códigos de país (los más utilizados)
+const countryCodes = [
+    { code: '+1', country: 'Estados Unidos / Canadá', flag: '🇺🇸', digits: 10 },
+    { code: '+52', country: 'México', flag: '🇲🇽', digits: 10 },
+    { code: '+51', country: 'Perú', flag: '🇵🇪', digits: 9 },
+    { code: '+54', country: 'Argentina', flag: '🇦🇷', digits: 10 },
+    { code: '+55', country: 'Brasil', flag: '🇧🇷', digits: 11 },
+    { code: '+56', country: 'Chile', flag: '🇨🇱', digits: 9 },
+    { code: '+57', country: 'Colombia', flag: '🇨🇴', digits: 10 },
+    { code: '+58', country: 'Venezuela', flag: '🇻🇪', digits: 10 },
+    { code: '+591', country: 'Bolivia', flag: '🇧🇴', digits: 8 },
+    { code: '+593', country: 'Ecuador', flag: '🇪🇨', digits: 9 },
+    { code: '+595', country: 'Paraguay', flag: '🇵🇾', digits: 9 },
+    { code: '+598', country: 'Uruguay', flag: '🇺🇾', digits: 8 },
+    { code: '+34', country: 'España', flag: '🇪🇸', digits: 9 },
+    { code: '+351', country: 'Portugal', flag: '🇵🇹', digits: 9 },
+    { code: '+33', country: 'Francia', flag: '🇫🇷', digits: 9 },
+    { code: '+39', country: 'Italia', flag: '🇮🇹', digits: 10 },
+    { code: '+44', country: 'Reino Unido', flag: '🇬🇧', digits: 10 },
+    { code: '+49', country: 'Alemania', flag: '🇩🇪', digits: 10 },
+    { code: '+81', country: 'Japón', flag: '🇯🇵', digits: 10 },
+    { code: '+82', country: 'Corea del Sur', flag: '🇰🇷', digits: 10 },
+    { code: '+86', country: 'China', flag: '🇨🇳', digits: 11 },
+    { code: '+91', country: 'India', flag: '🇮🇳', digits: 10 },
+    { code: '+61', country: 'Australia', flag: '🇦🇺', digits: 9 },
+    { code: '+64', country: 'Nueva Zelanda', flag: '🇳🇿', digits: 9 },
+    { code: '+27', country: 'Sudáfrica', flag: '🇿🇦', digits: 9 },
+    { code: '+234', country: 'Nigeria', flag: '🇳🇬', digits: 10 },
+    { code: '+20', country: 'Egipto', flag: '🇪🇬', digits: 10 },
+    { code: '+212', country: 'Marruecos', flag: '🇲🇦', digits: 9 },
+    { code: '+971', country: 'Emiratos Árabes', flag: '🇦🇪', digits: 9 },
+    { code: '+966', country: 'Arabia Saudita', flag: '🇸🇦', digits: 9 },
+    { code: '+90', country: 'Turquía', flag: '🇹🇷', digits: 10 },
+    { code: '+7', country: 'Rusia', flag: '🇷🇺', digits: 10 },
+    { code: '+380', country: 'Ucrania', flag: '🇺🇦', digits: 9 },
+    { code: '+48', country: 'Polonia', flag: '🇵🇱', digits: 9 },
+    { code: '+31', country: 'Países Bajos', flag: '🇳🇱', digits: 9 },
+    { code: '+32', country: 'Bélgica', flag: '🇧🇪', digits: 9 },
+    { code: '+41', country: 'Suiza', flag: '🇨🇭', digits: 9 },
+    { code: '+43', country: 'Austria', flag: '🇦🇹', digits: 10 },
+    { code: '+45', country: 'Dinamarca', flag: '🇩🇰', digits: 8 },
+    { code: '+46', country: 'Suecia', flag: '🇸🇪', digits: 9 },
+    { code: '+47', country: 'Noruega', flag: '🇳🇴', digits: 8 },
+    { code: '+358', country: 'Finlandia', flag: '🇫🇮', digits: 9 },
+    { code: '+353', country: 'Irlanda', flag: '🇮🇪', digits: 9 },
+    { code: '+30', country: 'Grecia', flag: '🇬🇷', digits: 10 },
+    { code: '+420', country: 'República Checa', flag: '🇨🇿', digits: 9 },
+    { code: '+36', country: 'Hungría', flag: '🇭🇺', digits: 9 },
+    { code: '+40', country: 'Rumania', flag: '🇷🇴', digits: 10 },
+    { code: '+506', country: 'Costa Rica', flag: '🇨🇷', digits: 8 },
+    { code: '+507', country: 'Panamá', flag: '🇵🇦', digits: 8 },
+    { code: '+503', country: 'El Salvador', flag: '🇸🇻', digits: 8 },
+    { code: '+502', country: 'Guatemala', flag: '🇬🇹', digits: 8 },
+    { code: '+504', country: 'Honduras', flag: '🇭🇳', digits: 8 },
+    { code: '+505', country: 'Nicaragua', flag: '🇳🇮', digits: 8 },
+    { code: '+509', country: 'Haití', flag: '🇭🇹', digits: 8 },
+    { code: '+53', country: 'Cuba', flag: '🇨🇺', digits: 8 },
+    { code: '+1-809', country: 'Rep. Dominicana', flag: '🇩🇴', digits: 10 },
+    { code: '+1-787', country: 'Puerto Rico', flag: '🇵🇷', digits: 10 },
+    { code: '+65', country: 'Singapur', flag: '🇸🇬', digits: 8 },
+    { code: '+60', country: 'Malasia', flag: '🇲🇾', digits: 10 },
+    { code: '+62', country: 'Indonesia', flag: '🇮🇩', digits: 10 },
+    { code: '+63', country: 'Filipinas', flag: '🇵🇭', digits: 10 },
+    { code: '+66', country: 'Tailandia', flag: '🇹🇭', digits: 9 },
+    { code: '+84', country: 'Vietnam', flag: '🇻🇳', digits: 9 },
+    { code: '+92', country: 'Pakistán', flag: '🇵🇰', digits: 10 },
+    { code: '+880', country: 'Bangladesh', flag: '🇧🇩', digits: 10 },
+    { code: '+94', country: 'Sri Lanka', flag: '🇱🇰', digits: 9 },
+    { code: '+977', country: 'Nepal', flag: '🇳🇵', digits: 10 },
+    { code: '+98', country: 'Irán', flag: '🇮🇷', digits: 10 },
+    { code: '+972', country: 'Israel', flag: '🇮🇱', digits: 9 },
+    { code: '+213', country: 'Argelia', flag: '🇩🇿', digits: 9 },
+    { code: '+216', country: 'Túnez', flag: '🇹🇳', digits: 8 },
+    { code: '+218', country: 'Libia', flag: '🇱🇾', digits: 9 },
+    { code: '+254', country: 'Kenia', flag: '🇰🇪', digits: 10 },
+    { code: '+255', country: 'Tanzania', flag: '🇹🇿', digits: 9 },
+    { code: '+256', country: 'Uganda', flag: '🇺🇬', digits: 9 },
+    { code: '+263', country: 'Zimbabue', flag: '🇿🇼', digits: 9 },
+    { code: '+233', country: 'Ghana', flag: '🇬🇭', digits: 9 },
+    { code: '+225', country: 'Costa de Marfil', flag: '🇨🇮', digits: 10 },
+    { code: '+221', country: 'Senegal', flag: '🇸🇳', digits: 9 }
+];
+
 // Estado de la aplicación
 const appState = {
     gender: null,
@@ -7,7 +333,8 @@ const appState = {
     invitationData: null,
     invitationId: null,
     selectedGifts: [],
-    guestInvitationData: null
+    guestInvitationData: null,
+    selectedCountry: null
 };
 
 // Configuración de Firebase
@@ -166,6 +493,11 @@ const giftsList = [
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar idioma
+    const savedLanguage = localStorage.getItem('babyShowerLanguage');
+    currentLanguage = savedLanguage || detectBrowserLanguage();
+    console.log('🌍 Idioma detectado:', currentLanguage);
+    
     // Verificar si hay parámetros en la URL (modo invitado)
     const urlParams = new URLSearchParams(window.location.search);
     const invitationId = urlParams.get('id');
@@ -184,6 +516,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Vista de administrador
 function initAdminView() {
+    // Aplicar traducciones iniciales
+    updateUILanguage();
+    
+    // Inicializar selector de idioma
+    initLanguageSelector();
+    
+    // Inicializar selector de país
+    initCountrySelector();
+    
     // Event listeners para selección de género
     document.querySelectorAll('.gender-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -213,6 +554,144 @@ function initAdminView() {
 
     // Event listener para el formulario
     document.getElementById('invitationForm').addEventListener('submit', handleFormSubmit);
+}
+
+// Inicializar selector de idioma
+function initLanguageSelector() {
+    const langButton = document.getElementById('currentLanguage');
+    const langDropdown = document.getElementById('languageDropdown');
+    
+    if (!langButton) return;
+    
+    // Actualizar display inicial
+    langButton.textContent = currentLanguage === 'es' ? '🇪🇸 ES' : '🇺🇸 EN';
+    
+    // Toggle dropdown
+    langButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const wrapper = langButton.closest('.language-selector');
+        wrapper.classList.toggle('active');
+    });
+    
+    // Selección de idioma
+    document.querySelectorAll('.language-option').forEach(option => {
+        option.addEventListener('click', () => {
+            const lang = option.dataset.lang;
+            changeLanguage(lang);
+            document.querySelector('.language-selector').classList.remove('active');
+        });
+    });
+    
+    // Cerrar al hacer click fuera
+    document.addEventListener('click', (e) => {
+        const langSelector = document.querySelector('.language-selector');
+        if (langSelector && !langSelector.contains(e.target)) {
+            langSelector.classList.remove('active');
+        }
+    });
+}
+
+// Inicializar selector de país con búsqueda
+function initCountrySelector() {
+    const countrySelect = document.getElementById('countryCode');
+    const searchInput = document.getElementById('countrySearch');
+    const dropdownList = document.getElementById('countryDropdown');
+    const selectedDisplay = document.getElementById('selectedCountry');
+    
+    // Establecer Perú como país por defecto
+    const defaultCountry = countryCodes.find(c => c.code === '+51');
+    appState.selectedCountry = defaultCountry;
+    selectedDisplay.innerHTML = `${defaultCountry.flag} ${defaultCountry.code}`;
+    updatePhoneNumberPlaceholder(defaultCountry);
+    
+    // Llenar dropdown inicial
+    renderCountryList(countryCodes);
+    
+    // Toggle dropdown
+    selectedDisplay.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const dropdown = selectedDisplay.closest('.country-selector-wrapper');
+        dropdown.classList.toggle('active');
+        if (dropdown.classList.contains('active')) {
+            searchInput.focus();
+        }
+    });
+    
+    // Búsqueda de países
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filtered = countryCodes.filter(country => 
+            country.country.toLowerCase().includes(searchTerm) ||
+            country.code.includes(searchTerm)
+        );
+        renderCountryList(filtered);
+    });
+    
+    // Cerrar dropdown al hacer click fuera
+    document.addEventListener('click', (e) => {
+        const dropdown = document.querySelector('.country-selector-wrapper');
+        if (dropdown && !dropdown.contains(e.target)) {
+            dropdown.classList.remove('active');
+            searchInput.value = '';
+            renderCountryList(countryCodes);
+        }
+    });
+}
+
+function renderCountryList(countries) {
+    const dropdownList = document.getElementById('countryDropdown');
+    dropdownList.innerHTML = countries.map(country => `
+        <div class="country-option" data-code="${country.code}" data-country='${JSON.stringify(country)}'>
+            <span class="country-flag">${country.flag}</span>
+            <span class="country-name">${country.country}</span>
+            <span class="country-code-label">${country.code}</span>
+        </div>
+    `).join('');
+    
+    // Event listeners para selección
+    dropdownList.querySelectorAll('.country-option').forEach(option => {
+        option.addEventListener('click', () => {
+            const country = JSON.parse(option.dataset.country);
+            selectCountry(country);
+        });
+    });
+}
+
+function selectCountry(country) {
+    appState.selectedCountry = country;
+    const selectedDisplay = document.getElementById('selectedCountry');
+    selectedDisplay.innerHTML = `${country.flag} ${country.code}`;
+    
+    // Cerrar dropdown
+    document.querySelector('.country-selector-wrapper').classList.remove('active');
+    document.getElementById('countrySearch').value = '';
+    renderCountryList(countryCodes);
+    
+    // Actualizar placeholder del número
+    updatePhoneNumberPlaceholder(country);
+}
+
+function updatePhoneNumberPlaceholder(country) {
+    const phoneInput = document.getElementById('phoneNumber');
+    const exampleNumber = '9'.repeat(country.digits);
+    phoneInput.placeholder = exampleNumber;
+    phoneInput.maxLength = country.digits;
+}
+
+// Validar número de teléfono según país
+function validatePhoneNumber(phone, country) {
+    // Remover espacios y caracteres especiales
+    const cleanPhone = phone.replace(/[^0-9]/g, '');
+    
+    // Validar longitud según el país
+    if (cleanPhone.length !== country.digits) {
+        return {
+            valid: false,
+            message: `${t('phoneValidation')} ${country.digits} ${t('digitsFor')} ${country.country}`
+        };
+    }
+    
+    return { valid: true, cleanPhone };
 }
 
 // Cargar colores según género
@@ -271,7 +750,7 @@ function toggleEffect(effectId, index) {
             appState.selectedEffects.push(effectId);
             effectElement.classList.add('selected');
         } else {
-            alert('Solo puedes seleccionar hasta 3 efectos');
+            alert(t('maxEffectsReached'));
             return;
         }
     }
@@ -358,17 +837,17 @@ function selectTheme(themeId, index) {
 function nextScreen(screenId) {
     // Validaciones
     if (screenId === 'effectsScreen' && !appState.selectedColor) {
-        alert('Por favor selecciona un color');
+        alert(t('selectColor'));
         return;
     }
     
     if (screenId === 'themeScreen' && appState.selectedEffects.length === 0) {
-        alert('Por favor selecciona al menos un efecto');
+        alert(t('selectAtLeastOne'));
         return;
     }
     
     if (screenId === 'adminScreen' && !appState.selectedTheme) {
-        alert('Por favor selecciona un tema');
+        alert(t('selectTheme'));
         return;
     }
 
@@ -403,14 +882,26 @@ function goBack(screenId) {
 function handleFormSubmit(e) {
     e.preventDefault();
     
+    // Validar número de teléfono
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const validation = validatePhoneNumber(phoneNumber, appState.selectedCountry);
+    
+    if (!validation.valid) {
+        alert(validation.message);
+        document.getElementById('phoneNumber').focus();
+        return;
+    }
+    
     // Recopilar datos
     const formData = {
         gender: appState.gender,
         color: appState.selectedColor,
         effects: appState.selectedEffects,
         theme: appState.selectedTheme,
-        countryCode: document.getElementById('countryCode').value,
-        phoneNumber: document.getElementById('phoneNumber').value,
+        countryCode: appState.selectedCountry.code,
+        countryName: appState.selectedCountry.country,
+        countryFlag: appState.selectedCountry.flag,
+        phoneNumber: validation.cleanPhone,
         babyName: document.getElementById('babyName').value,
         fatherName: document.getElementById('fatherName').value,
         motherName: document.getElementById('motherName').value,
@@ -740,8 +1231,8 @@ function shareWhatsApp() {
     
     // Método 1: Intentar abrir directamente (funciona en WebView)
     try {
-        window.location.href = whatsappUrl;
-        console.log('✅ Método 1: window.location.href ejecutado');
+        window.open(whatsappUrl, '_blank');
+        console.log('✅ Método 1: window.open ejecutado');
     } catch (error) {
         console.error('❌ Método 1 falló:', error);
         
@@ -1223,7 +1714,12 @@ function handleConfirmation(e) {
     const guestMessage = document.getElementById('guestMessage').value;
     
     const data = appState.invitationData;
-    const whatsappNumber = data.countryCode + data.phoneNumber;
+    // Limpiar el código de país (remover espacios, guiones y el símbolo +)
+    const cleanCountryCode = data.countryCode.replace(/[^0-9]/g, '');
+    const whatsappNumber = cleanCountryCode + data.phoneNumber;
+    
+    console.log('📱 Enviando a WhatsApp:', whatsappNumber);
+    console.log('🌍 País:', data.countryName || 'No especificado');
     
     let message = `¡Hola! Confirmo mi asistencia al Baby Shower de ${data.babyName}\n\n`;
     message += `👤 Nombre: ${guestName}\n`;
@@ -1243,10 +1739,18 @@ function handleConfirmation(e) {
     }
     
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    console.log('🔗 URL de WhatsApp:', whatsappUrl);
     
-    // Mostrar mensaje de éxito
-    alert('¡Gracias por confirmar! Serás redirigido a WhatsApp para enviar tu confirmación.');
+    try {
+        window.open(whatsappUrl, '_blank');
+        // Mostrar mensaje de éxito
+        setTimeout(() => {
+            alert('¡Gracias por confirmar! Se abrió WhatsApp para enviar tu confirmación.');
+        }, 500);
+    } catch (error) {
+        console.error('Error al abrir WhatsApp:', error);
+        alert('Error al abrir WhatsApp. Por favor, contacta directamente al número: ' + data.countryCode + ' ' + data.phoneNumber);
+    }
 }
 
 // Alternar selección de regalo

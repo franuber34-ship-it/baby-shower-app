@@ -10,12 +10,27 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 </head>
 <body>
+    <!-- Selector de Idioma Flotante -->
+    <div class="language-selector">
+        <button class="language-btn" id="currentLanguage">🇪🇸 ES</button>
+        <div class="language-dropdown" id="languageDropdown">
+            <div class="language-option" data-lang="es">
+                <span class="lang-flag">🇪🇸</span>
+                <span class="lang-name">Español</span>
+            </div>
+            <div class="language-option" data-lang="en">
+                <span class="lang-flag">🇺🇸</span>
+                <span class="lang-name">English</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Pantalla de Inicio: Selección de Género -->
     <div id="genderScreen" class="screen active">
         <div class="container">
             <div class="header">
-                <h1 class="main-title">Baby Shower</h1>
-                <p>Crea tu invitación digital</p>
+                <h1 class="main-title" data-i18n="mainTitle">Baby Shower</h1>
+                <p data-i18n="mainSubtitle">Crea tu invitación digital</p>
             </div>
             
             <div class="gender-selection">
@@ -23,13 +38,13 @@
                     <svg viewBox="0 0 15.14 17.15" width="80" height="80" fill="currentColor">
                         <path d="M1.81 9.97c-0.54,0.6 -0.96,1.42 -0.76,2.23 0.09,0.36 0.27,0.68 0.44,0.99 -0.13,-0.02 -0.3,0.05 -0.42,-0.02 -0.11,-0.07 -0.22,-0.14 -0.35,-0.16 -0.13,-0.01 -0.27,0.03 -0.38,0.11 -0.25,0.16 -0.48,0.66 -0.16,0.88 -0.36,0.44 -0.15,1.35 0.33,1.66 0.18,0.12 0.42,0.14 0.64,0.16 0.59,0.03 1.18,0.01 1.77,0.07 0.8,0.08 1.58,0.32 2.38,0.34 0.31,0 0.63,-0.03 0.9,-0.17 0.5,-0.26 0.76,-0.82 0.9,-1.37 0.47,-0.13 0.91,-0.37 1.27,-0.69 0.2,0.48 0.68,0.83 0.78,1.34 0.05,0.23 0.01,0.48 0.11,0.7 0.14,0.31 0.57,0.43 0.85,0.24 -0.02,0.24 0.26,0.46 0.49,0.37 0.03,-0.02 0.06,-0.03 0.09,-0.03 0.05,0 0.08,0.03 0.12,0.06 0.3,0.27 0.75,0.29 1.14,0.2 0.13,-0.03 0.26,-0.01 0.38,-0.09 0.14,-0.09 0.34,-0.06 0.45,0.07 0.04,0.05 0.07,0.11 0.11,0.17 0.06,0.08 0.16,0.13 0.25,0.12 0.1,-0.02 0.19,-0.11 0.18,-0.21 -0.02,-0.07 -0.07,-0.13 -0.11,-0.18 -0.05,-0.06 -0.08,-0.15 -0.04,-0.21 0.18,0.11 0.43,0.11 0.56,0.27 0.03,0.04 0.05,0.09 0.09,0.13 0.07,0.06 0.17,0.07 0.26,0.05 0.04,-0.01 0.08,-0.03 0.11,-0.06 0.03,-0.03 0.04,-0.08 0.01,-0.11 0.06,0.01 0.13,0.02 0.19,0 0.06,-0.02 0.12,-0.07 0.12,-0.13 0,-0.05 -0.03,-0.08 -0.05,-0.12 -0.08,-0.11 -0.16,-0.23 -0.23,-0.34 -0.05,-0.07 -0.06,-0.14 -0.1,-0.22 -0.14,-0.28 -0.45,-0.47 -0.76,-0.48 -0.23,-0.01 -0.45,0.06 -0.67,0.04 0.02,-0.09 -0.05,-0.18 -0.12,-0.24 -0.07,-0.06 -0.15,-0.11 -0.2,-0.19 -0.07,-0.1 -0.07,-0.23 -0.06,-0.36 0.1,0.12 0.24,0.2 0.38,0.27 0.19,0.09 0.43,0.15 0.6,0.02 0.06,-0.05 0.12,-0.15 0.05,-0.18 0.25,0 0.49,-0.01 0.74,-0.04 0.03,0 0.06,-0.01 0.09,0.01 0.02,0.02 0.03,0.04 0.03,0.07 0.04,0.1 0.11,0.2 0.22,0.23 0.1,0.03 0.24,-0.06 0.21,-0.16 0.03,0.09 0.13,0.15 0.23,0.13 0.09,-0.02 0.16,-0.11 0.16,-0.21 -0.01,-0.02 -0.01,-0.05 -0.01,-0.08 0,-0.07 0.05,-0.13 0.09,-0.19 0.07,-0.14 0.03,-0.32 -0.08,-0.44 -0.1,-0.12 -0.26,-0.18 -0.41,-0.19 -0.2,-0.02 -0.42,0.03 -0.59,-0.06 -0.06,-0.04 -0.08,-0.06 -0.13,-0.1 0.07,-0.25 0.13,-0.49 0.2,-0.73 0.04,-0.13 0.07,-0.26 0.02,-0.39 -0.03,-0.08 -0.1,-0.14 -0.14,-0.21 -0.12,-0.2 -0.08,-0.45 -0.07,-0.68 0.05,-0.66 -0.16,-1.33 -0.56,-1.85 -0.1,-0.13 -0.21,-0.25 -0.27,-0.41 -0.14,-0.36 0.08,-0.77 0.1,-1.16 0.01,-0.5 -0.31,-0.94 -0.61,-1.34 -0.25,-0.33 0.51,-0.45 0.72,-0.48 0.14,-0.03 0.29,-0.04 0.42,-0.09 0.37,-0.14 0.73,-0.54 0.89,-0.9 0.13,-0.31 0.17,-0.67 0.12,-1.01 -0.05,-0.33 -0.29,-0.6 -0.33,-0.91 -0.06,-0.43 0.07,-0.86 0.01,-1.29 -0.08,-0.65 -0.53,-1.36 -1.05,-1.75 -0.64,-0.48 -1.46,-0.68 -2.26,-0.67 -1.01,0.01 -2.07,0.38 -2.66,1.24 -0.37,0.56 -0.54,1.25 -0.48,1.92 0.04,0.51 0.19,1.01 0.38,1.49 0.11,0.29 0.23,0.59 0.27,0.9 -0.18,0.02 -0.3,0.15 -0.4,0.31 -0.09,0.15 -0.15,0.32 -0.26,0.46 -0.14,0.22 -0.37,0.37 -0.59,0.5 -1.01,0.59 -2.14,0.83 -3.17,1.36 -0.82,0.42 -1.57,0.97 -2.22,1.62 -0.05,0.05 -0.1,0.11 -0.15,0.17z"/>
                     </svg>
-                    <span>Niño</span>
+                    <span data-i18n="boy">Niño</span>
                 </button>
                 <button class="gender-btn girl" data-gender="F">
                     <svg viewBox="0 0 34.41 16.66" width="80" height="80" fill="currentColor">
                         <path d="M21.21 8.71c-0.01,0.01 -0.02,0.01 -0.03,0 -0.17,-0.05 -0.33,-0.09 -0.51,-0.12 -0.05,-0.01 -0.65,-0.06 -0.65,-0.05 -0.04,-0.64 -0.09,-1.28 -0.13,-1.91 -0.01,-0.07 -0.01,-0.13 -0.02,-0.2 -0.04,-0.65 -0.09,-1.29 -0.14,-1.94 0.29,0 0.47,0.04 0.69,0.21 0.08,0.05 0.15,0.12 0.21,0.2 0.21,0.26 0.26,0.63 0.33,0.95 0.2,0.93 0.26,1.88 0.26,2.84 0,0.01 0,0.02 -0.01,0.02zm13.08 1.19c-0.12,-0.71 -0.34,-1.41 -0.75,-2 -0.4,-0.59 -1.01,-1.06 -1.72,-1.2 0.42,-0.34 0.85,-0.79 0.83,-1.35 -0.01,-0.61 -0.26,-1.16 -0.61,-1.66 -0.46,-0.64 -1.04,-1.2 -1.35,-1.93 -0.08,-0.21 -0.15,-0.42 -0.21,-0.64 -0.06,0.03 -0.12,0.06 -0.18,0.1 0.03,-0.12 -0.03,-0.26 -0.14,-0.31 -0.1,-0.06 -0.25,-0.03 -0.33,0.06 -0.06,-0.13 -0.12,-0.28 -0.24,-0.37 -0.12,-0.1 -0.28,-0.12 -0.41,-0.03 -0.17,-0.22 -0.62,-0.62 -0.88,-0.26 -0.06,0.08 -0.06,0.19 -0.08,0.29 -0.05,0.31 -0.22,0.62 -0.14,0.92 0.05,0.2 0.19,0.36 0.27,0.55 0.07,0.17 0.1,0.34 0.12,0.52 0.08,0.58 0.15,1.15 0.23,1.73 0.01,0.11 0.02,0.23 -0.05,0.32 -0.08,0.11 -0.23,0.11 -0.37,0.1 -1.01,-0.06 -1.89,-0.01 -2.89,0.18 -0.16,0.03 -0.33,0.07 -0.41,0.22 -0.08,-0.11 0.01,-0.04 -0.06,-0.15 -0.32,-0.58 -0.68,-1.15 -1.17,-1.6 -0.26,-0.23 -0.54,-0.43 -0.82,-0.63 -0.83,-0.62 -1.96,-0.97 -2.29,-1.96 -0.12,-0.38 -0.46,-0.69 -0.85,-0.78 -0.14,-0.04 -0.32,-0.02 -0.36,0.11 -0.09,-0.08 -0.23,-0.11 -0.34,-0.07 -0.11,0.04 -0.2,0.15 -0.21,0.27 -0.14,-0.12 -0.36,-0.13 -0.49,-0.01 -0.04,0.03 -0.07,0.07 -0.11,0.09 -0.04,0.02 -0.09,0.03 -0.13,0.04 -0.28,0.05 -0.47,0.15 -0.67,0.35 -0.04,0.04 -0.49,0.59 -0.43,0.63 -0.23,-0.11 -0.52,-0.01 -0.69,0.18 -0.17,0.19 -0.25,0.44 -0.29,0.7 -0.11,-0.25 -0.52,-0.2 -0.68,0.02 -0.15,0.22 -0.13,0.52 -0.11,0.79 -0.27,0.04 -0.44,0.39 -0.31,0.63 0.08,0.14 0.24,0.25 0.26,0.41 0.01,0.07 -0.01,0.14 -0.03,0.21 -0.07,0.21 -0.12,0.42 -0.1,0.63 0.03,0.22 0.16,0.43 0.37,0.49 0.08,0.03 0.17,0.03 0.25,0.05 0.09,0.03 0.17,0.08 0.24,0.14 0.14,0.1 0.38,0.1 0.52,0.2 -0.18,0.23 -0.02,0.59 -0.17,0.84 -0.05,0.08 -0.13,0.14 -0.21,0.2 -0.41,0.32 -0.83,0.63 -1.27,0.92 -0.57,0.36 -1.17,0.67 -1.72,1.06 -0.13,0.09 -1.42,1.23 -1.31,1.35 -0.18,-0.19 -0.28,-0.44 -0.39,-0.67 -0.45,-0.84 -1.26,-1.61 -2.14,-1.98 -0.51,-0.21 -0.96,-0.2 -1.49,-0.25 -0.73,-0.08 -1.44,-0.32 -2.14,-0.54 -0.33,-0.1 -0.67,-0.2 -1.02,-0.18 -0.34,0.01 -0.67,0.13 -0.99,0.25 -1.09,0.44 -2.18,1.03 -2.84,2 -0.5,0.75 -0.71,1.65 -0.77,2.55 -0.05,0.69 -0.01,1.4 0.21,2.06 0.59,1.88 2.37,2.28 4.14,2.39 1.54,0.1 3.09,0.02 4.61,-0.22 0.45,-0.08 0.9,-0.16 1.35,-0.1 0.39,0.05 0.75,0.2 1.12,0.32 0.88,0.29 1.8,0.38 2.72,0.46 2.51,0.21 5.03,0.32 7.55,0.32 1.68,0.01 3.36,-0.04 5.03,-0.17 0.67,-0.04 1.36,-0.07 2.05,-0.14 0.94,-0.1 1.87,-0.26 2.71,-0.63 0.37,-0.17 0.73,-0.34 1.06,-0.57 0.79,-0.56 1.35,-1.43 1.62,-2.36 0.27,-0.93 0.27,-1.93 0.1,-2.89z"/>
                     </svg>
-                    <span>Niña</span>
+                    <span data-i18n="girl">Niña</span>
                 </button>
             </div>
         </div>
@@ -38,13 +53,13 @@
     <!-- Pantalla de Colores -->
     <div id="colorScreen" class="screen has-floating-btn">
         <button class="floating-action-btn" onclick="nextScreen('effectsScreen')">
-            <span>Continuar</span>
+            <span data-i18n="continue">Continuar</span>
             <span>→</span>
         </button>
         <div class="container">
             <div class="header">
-                <button class="back-btn" onclick="goBack('genderScreen')">← Atrás</button>
-                <h2>Elige el color</h2>
+                <button class="back-btn" onclick="goBack('genderScreen')"><span data-i18n="back">← Atrás</span></button>
+                <h2 data-i18n="chooseColor">Elige el color</h2>
             </div>
             
             <div id="colorOptions" class="color-grid"></div>
@@ -54,14 +69,14 @@
     <!-- Pantalla de Efectos -->
     <div id="effectsScreen" class="screen has-floating-btn">
         <button class="floating-action-btn" onclick="nextScreen('themeScreen')">
-            <span>Continuar</span>
+            <span data-i18n="continue">Continuar</span>
             <span>→</span>
         </button>
         <div class="container">
             <div class="header">
-                <button class="back-btn" onclick="goBack('colorScreen')">← Atrás</button>
-                <h2>Efectos Flotantes</h2>
-                <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 12px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.5;">Personaliza tu invitación seleccionando hasta 3 efectos decorativos</p>
+                <button class="back-btn" onclick="goBack('colorScreen')"><span data-i18n="back">← Atrás</span></button>
+                <h2 data-i18n="floatingEffects">Efectos Flotantes</h2>
+                <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 12px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.5;" data-i18n="effectsDescription">Personaliza tu invitación seleccionando hasta 3 efectos decorativos</p>
             </div>
             
             <div id="effectsOptions" class="effects-grid"></div>
@@ -76,14 +91,14 @@
     <!-- Pantalla de Temas -->
     <div id="themeScreen" class="screen has-floating-btn">
         <button class="floating-action-btn" onclick="nextScreen('adminScreen')">
-            <span>Continuar</span>
+            <span data-i18n="continue">Continuar</span>
             <span>→</span>
         </button>
         <div class="container">
             <div class="header">
-                <button class="back-btn" onclick="goBack('effectsScreen')">← Atrás</button>
-                <h2>Estilo de Invitación</h2>
-                <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 12px; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.5;">Elige el estilo tipográfico que mejor represente tu celebración</p>
+                <button class="back-btn" onclick="goBack('effectsScreen')"><span data-i18n="back">← Atrás</span></button>
+                <h2 data-i18n="invitationStyle">Estilo de Invitación</h2>
+                <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 12px; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.5;" data-i18n="themeDescription">Elige el estilo tipográfico que mejor represente tu celebración</p>
             </div>
             
             <div id="themeOptions" class="theme-grid"></div>
@@ -94,8 +109,8 @@
     <div id="adminScreen" class="screen">
         <div class="container">
             <div class="header">
-                <button class="back-btn" onclick="goBack('themeScreen')">← Atrás</button>
-                <h2>Completa la información</h2>
+                <button class="back-btn" onclick="goBack('themeScreen')"><span data-i18n="back">← Atrás</span></button>
+                <h2 data-i18n="completeInfo">Completa la información</h2>
             </div>
             
             <form id="invitationForm" class="form">
@@ -104,11 +119,21 @@
                         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                             <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 012.41 5.83c0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.32a8.188 8.188 0 01-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.15-.48-.27-.25-.11-1.47-.72-1.69-.81-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.46-.01z"/>
                         </svg>
-                        WhatsApp de Contacto
+                        <span data-i18n="whatsappContact">WhatsApp de Contacto</span>
                     </h3>
-                    <div class="phone-input">
-                        <input type="text" id="countryCode" value="+51" maxlength="4" placeholder="+51">
-                        <input type="tel" id="phoneNumber" placeholder="987654321" required>
+                    <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 16px;" data-i18n="whatsappDesc">Número donde recibirás las confirmaciones de asistencia</p>
+                    <div class="phone-input-international">
+                        <div class="country-selector-wrapper">
+                            <div class="selected-country" id="selectedCountry">
+                                🇵🇪 +51
+                            </div>
+                            <div class="country-dropdown">
+                                <input type="text" id="countrySearch" data-i18n-placeholder="searchCountry" placeholder="Buscar país..." class="country-search">
+                                <div class="country-list" id="countryDropdown"></div>
+                            </div>
+                        </div>
+                        <input type="tel" id="phoneNumber" data-i18n-placeholder="phoneNumber" placeholder="987654321" required>
+                        <input type="hidden" id="countryCode">
                     </div>
                 </div>
 
@@ -118,9 +143,9 @@
                             <circle cx="12" cy="8" r="4"/>
                             <path d="M12 11c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/>
                         </svg>
-                        Información del Bebé
+                        <span data-i18n="babyInfo">Información del Bebé</span>
                     </h3>
-                    <input type="text" id="babyName" placeholder="Nombre del bebé" required>
+                    <input type="text" id="babyName" data-i18n-placeholder="babyName" placeholder="Nombre del bebé" required>
                 </div>
 
                 <div class="form-section">
@@ -128,10 +153,10 @@
                         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                             <path d="M16 4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2s.89-2 2-2 2 .89 2 2zm4 18v-6c0-1.1-.9-2-2-2h-3l-1-3h-2l-1 3H8c-1.1 0-2 .9-2 2v6h2v-6h2.5l1.5 5h4l1.5-5H20v6h2zM7.5 6.5C7.5 8.43 5.93 10 4 10S.5 8.43.5 6.5 2.07 3 4 3s3.5 1.57 3.5 3.5zM8 22v-6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v6h2v-6h2.5l1.5 5h2z"/>
                         </svg>
-                        Padres
+                        <span data-i18n="parents">Padres</span>
                     </h3>
-                    <input type="text" id="fatherName" placeholder="Nombre del papá" required>
-                    <input type="text" id="motherName" placeholder="Nombre de la mamá" required>
+                    <input type="text" id="fatherName" data-i18n-placeholder="fatherName" placeholder="Nombre del papá" required>
+                    <input type="text" id="motherName" data-i18n-placeholder="motherName" placeholder="Nombre de la mamá" required>
                 </div>
 
                 <div class="form-section">
@@ -139,15 +164,15 @@
                         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                             <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
                         </svg>
-                        Fecha y Hora del Evento
+                        <span data-i18n="eventDateTime">Fecha y Hora del Evento</span>
                     </h3>
                     <div class="date-time-modern">
                         <div class="input-modern">
-                            <label for="eventDate">Fecha</label>
+                            <label for="eventDate" data-i18n="date">Fecha</label>
                             <input type="date" id="eventDate" required>
                         </div>
                         <div class="input-modern">
-                            <label for="eventTime">Hora</label>
+                            <label for="eventTime" data-i18n="time">Hora</label>
                             <input type="time" id="eventTime" required>
                         </div>
                     </div>
@@ -158,13 +183,13 @@
                         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
                         </svg>
-                        Ubicación
+                        <span data-i18n="location">Ubicación</span>
                     </h3>
-                    <input type="text" id="address" placeholder="Dirección completa del evento" required list="address-suggestions">
+                    <input type="text" id="address" data-i18n-placeholder="address" placeholder="Dirección completa del evento" required list="address-suggestions">
                     <datalist id="address-suggestions"></datalist>
                     <div class="map-links-input">
-                        <input type="url" id="googleMapsLink" placeholder="Enlace de Google Maps (opcional)">
-                        <input type="url" id="wazeLink" placeholder="Enlace de Waze (opcional)">
+                        <input type="url" id="googleMapsLink" data-i18n-placeholder="googleMapsLink" placeholder="Enlace de Google Maps (opcional)">
+                        <input type="url" id="wazeLink" data-i18n-placeholder="wazeLink" placeholder="Enlace de Waze (opcional)">
                     </div>
                 </div>
 
@@ -173,9 +198,9 @@
                         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                             <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                         </svg>
-                        Mensaje de Invitación
+                        <span data-i18n="invitationMessage">Mensaje de Invitación</span>
                     </h3>
-                    <textarea id="invitationMessage" rows="4" placeholder="Escribe un mensaje especial para tus invitados..." required></textarea>
+                    <textarea id="invitationMessage" rows="4" data-i18n-placeholder="invitationMessagePlaceholder" placeholder="Escribe un mensaje especial para tus invitados..." required></textarea>
                 </div>
 
                 <div class="form-section">
@@ -183,24 +208,24 @@
                         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                             <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 00-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/>
                         </svg>
-                        Lista de Regalos
+                        <span data-i18n="giftList">Lista de Regalos</span>
                     </h3>
                     <div class="gift-options">
                         <label class="radio-option">
                             <input type="radio" name="giftList" value="default" checked>
-                            <span>Usar lista por defecto (10 regalos aleatorios)</span>
+                            <span data-i18n="defaultGiftList">Usar lista por defecto (10 regalos aleatorios)</span>
                         </label>
                         <label class="radio-option">
                             <input type="radio" name="giftList" value="custom">
-                            <span>Agregar mi propia lista</span>
+                            <span data-i18n="customGiftList">Agregar mi propia lista</span>
                         </label>
                     </div>
                     <div id="customGiftList" class="custom-gifts hidden">
-                        <textarea id="customGifts" rows="6" placeholder="Escribe cada regalo en una línea nueva&#10;Ejemplo:&#10;Pañales&#10;Biberón&#10;Ropa de bebé"></textarea>
+                        <textarea id="customGifts" rows="6" data-i18n-placeholder="customGiftsPlaceholder" placeholder="Escribe cada regalo en una línea nueva&#10;Ejemplo:&#10;Pañales&#10;Biberón&#10;Ropa de bebé"></textarea>
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn">Generar Invitación</button>
+                <button type="submit" class="submit-btn" data-i18n="generateInvitation">Generar Invitación</button>
             </form>
         </div>
     </div>
@@ -209,7 +234,7 @@
     <div id="previewScreen" class="screen">
         <div class="container">
             <div class="header">
-                <h2>¡Tu invitación está lista!</h2>
+                <h2 data-i18n="invitationReady">¡Tu invitación está lista!</h2>
             </div>
             
             <div class="preview-card" id="previewCard"></div>
