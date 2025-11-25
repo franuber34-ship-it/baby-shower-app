@@ -535,10 +535,20 @@ const giftsList = [
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar idioma
+    // Inicializar idioma (prioridad: localStorage > idioma del navegador > español)
     const savedLanguage = localStorage.getItem('babyShowerLanguage');
-    currentLanguage = savedLanguage || detectBrowserLanguage();
-    console.log('🌍 Idioma detectado:', currentLanguage);
+    const browserLanguage = detectBrowserLanguage();
+    
+    if (savedLanguage) {
+        currentLanguage = savedLanguage;
+        console.log('🌍 Idioma desde localStorage:', currentLanguage);
+    } else {
+        currentLanguage = browserLanguage;
+        console.log('🌍 Idioma detectado del navegador:', currentLanguage);
+    }
+    
+    // Aplicar idioma
+    updateUILanguage();
     
     // Verificar si hay parámetros en la URL (modo invitado)
     const urlParams = new URLSearchParams(window.location.search);
