@@ -648,7 +648,7 @@ function initLanguageSelector() {
     document.addEventListener('click', (e) => {
         const langSelector = document.querySelector('.language-selector');
         if (langSelector && !langSelector.contains(e.target)) {
-            langSelector.classList.remove('active');
+            langDropdown.classList.add('hidden');
         }
     });
 }
