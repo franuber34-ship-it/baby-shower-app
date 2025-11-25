@@ -792,12 +792,79 @@ function loadEffects() {
     
     effectsOptions.innerHTML = effects.map((effect, index) => `
         <div class="effect-option" data-effect="${effect.id}" onclick="toggleEffect('${effect.id}', ${index})">
+            <div class="effect-preview-container"></div>
             <div class="effect-icon">${effect.icon}</div>
             <div class="effect-name" data-i18n="${effect.nameKey}">${t(effect.nameKey)}</div>
         </div>
     `).join('');
     
+    // Agregar elementos de vista previa animados
+    addEffectPreviews();
+    
     updateSelectedEffectsDisplay();
+}
+
+// Agregar elementos animados de vista previa a cada efecto
+function addEffectPreviews() {
+    document.querySelectorAll('.effect-option').forEach(option => {
+        const effectId = option.dataset.effect;
+        const container = option.querySelector('.effect-preview-container');
+        
+        if (!container) return;
+        
+        let previewHTML = '';
+        
+        switch(effectId) {
+            case 'football':
+                // 3 balones flotando
+                previewHTML = `
+                    <div class="preview-ball preview-ball-1"></div>
+                    <div class="preview-ball preview-ball-2"></div>
+                    <div class="preview-ball preview-ball-3"></div>
+                `;
+                break;
+            case 'footprints':
+                // Huellitas caminando
+                previewHTML = `
+                    <div class="preview-footprint preview-footprint-1"></div>
+                    <div class="preview-footprint preview-footprint-2"></div>
+                    <div class="preview-footprint preview-footprint-3"></div>
+                `;
+                break;
+            case 'animals':
+                // Animales saltando
+                previewHTML = `
+                    <div class="preview-animal preview-animal-1"></div>
+                    <div class="preview-animal preview-animal-2"></div>
+                `;
+                break;
+            case 'waves':
+                // Ondas de agua
+                previewHTML = `
+                    <div class="preview-wave preview-wave-1"></div>
+                    <div class="preview-wave preview-wave-2"></div>
+                    <div class="preview-wave preview-wave-3"></div>
+                `;
+                break;
+            case 'cars':
+                // Carros desplazándose
+                previewHTML = `
+                    <div class="preview-car preview-car-1"></div>
+                    <div class="preview-car preview-car-2"></div>
+                `;
+                break;
+            case 'tools':
+                // Herramientas rotando
+                previewHTML = `
+                    <div class="preview-tool preview-tool-1"></div>
+                    <div class="preview-tool preview-tool-2"></div>
+                    <div class="preview-tool preview-tool-3"></div>
+                `;
+                break;
+        }
+        
+        container.innerHTML = previewHTML;
+    });
 }
 
 // Seleccionar/deseleccionar efecto
