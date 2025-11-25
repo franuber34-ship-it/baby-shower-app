@@ -403,12 +403,14 @@ try {
 // Paletas de colores según género
 const colorPalettes = {
     M: [
-        { name: 'Azul Cielo', value: '#87CEEB' },
-        { name: 'Azul Royal', value: '#4169E1' },
-        { name: 'Azul Marino', value: '#1E3A8A' },
-        { name: 'Turquesa', value: '#40E0D0' },
-        { name: 'Menta', value: '#98D8C8' },
-        { name: 'Verde Agua', value: '#7DD4C0' }
+        { name: 'Azul Cielo', value: '#5DADE2' },
+        { name: 'Azul Royal', value: '#3498DB' },
+        { name: 'Azul Marino', value: '#2874A6' },
+        { name: 'Turquesa', value: '#48C9B0' },
+        { name: 'Aguamarina', value: '#1ABC9C' },
+        { name: 'Azul Acero', value: '#5DADE2' },
+        { name: 'Océano', value: '#17A2B8' },
+        { name: 'Índigo', value: '#6C5CE7' }
     ],
     F: [
         { name: 'Rosa Suave', value: '#FFB6C1' },
