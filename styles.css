@@ -3553,13 +3553,14 @@ body.girl-theme .floating-action-btn:hover {
 .language-dropdown {
     position: absolute;
     top: calc(100% + 8px);
-    right: 0;
+    left: 0;
+    right: auto;
     background: white;
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     overflow: hidden;
     min-width: 180px;
-    transform-origin: top right;
+    transform-origin: top left;
     animation: languageDropdown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
