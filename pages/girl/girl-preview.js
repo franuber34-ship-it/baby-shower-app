@@ -178,12 +178,12 @@ document.addEventListener('DOMContentLoaded', function() {
 // VISTA DE ADMINISTRADOR
 async function renderAdminView() {
   console.log('renderAdminView called');
+  const lang = getLang();
   const storedData = localStorage.getItem('girlFormData');
   console.log('Stored data:', storedData);
   
   if (!storedData) {
     console.log('No stored data found');
-    const lang = getLang();
     const errorHTML = `
       <div class="container" style="padding: 40px; text-align: center;">
         <h2 style="color: #e74c3c; margin-bottom: 20px;">No hay datos para mostrar</h2>
@@ -211,7 +211,6 @@ async function renderAdminView() {
   
   if (!data.babyName) {
     console.log('No baby name found');
-    const lang = getLang();
     const template = `
       <div class="container" style="padding: 40px; text-align: center;">
         <h2 style="color: #e74c3c;">Datos incompletos</h2>
