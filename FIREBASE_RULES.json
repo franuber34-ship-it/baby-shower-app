@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "invitations": {
+      "$invitationId": {
+        ".read": true,
+        ".write": false
+      }
+    },
+    "confirmations": {
+      "$invitationId": {
+        ".read": true,
+        ".write": true
+      }
+    }
+  }
+}

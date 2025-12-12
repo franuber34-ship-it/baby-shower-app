@@ -273,7 +273,9 @@ async function renderGuestView(invitationId) {
   const color = applySelectedColor(data.color);
   const fontFamily = getFontFamily(data.theme);
   const effectsOverlay = buildEffectsOverlay(data.effects || [], color);
-  const confirmedTotal = await getConfirmationTotal(invitationId);
+  // Los invitados no pueden leer confirmaciones (reglas de Firebase requieren auth)
+  // Solo el admin puede ver el total; invitados solo pueden escribir su confirmación
+  const confirmedTotal = 0;
 
   const heroBackground = `linear-gradient(135deg, ${color} 0%, ${adjustColorBrightness(color, -20)} 100%)`;
 
@@ -599,9 +601,29 @@ function showCopyMessage(evt) {
 }
 
 function shareWhatsApp() {
-  const urlText = document.getElementById('invitationURL').textContent;
-  const message = encodeURIComponent(`Estas invitado a mi Baby Shower.\n\nMira los detalles aqui: ${urlText}`);
-  window.open(`https://wa.me/?text=${message}`, '_blank');
+  // Obtener la URL del input si existe, o construirla desde la ubicación actual
+  let inviteUrl = '';
+  
+  const urlElement = document.getElementById('invitationURL');
+  if (urlElement) {
+    inviteUrl = urlElement.textContent || urlElement.value || '';
+  }
+  
+  // Si no hay URL en el elemento, usar la URL actual de la página
+  if (!inviteUrl) {
+    inviteUrl = window.location.href;
+  }
+  
+  if (!inviteUrl) {
+    console.error('URL de invitación no disponible');
+    return;
+  }
+  
+  const message = `¡Estás invitada a mi Baby Shower! 👶\n\nMira los detalles aquí:\n${inviteUrl}`;
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  
+  console.log('Compartiendo por WhatsApp:', whatsappUrl);
+  window.open(whatsappUrl, '_blank');
 }
 
 function getThemeLabel(themeId) {

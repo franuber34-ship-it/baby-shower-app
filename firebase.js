@@ -60,10 +60,13 @@ function loadConfirmations(invitationId) {
     });
 }
 
-// Get confirmation total (sum of all attendees)
+// Get confirmation total (sum of all attendees) - with error handling
 function getConfirmationTotal(invitationId) {
     return loadConfirmations(invitationId).then(confirmations => {
         return confirmations.reduce((sum, item) => sum + (parseInt(item.count, 10) || 1), 0);
+    }).catch(err => {
+        console.warn('No se pudieron cargar confirmaciones (permisos):', err);
+        return 0; // Retornar 0 si no hay permisos
     });
 }
 
