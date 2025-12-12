@@ -126,7 +126,7 @@ async function renderAdminView() {
   await saveInvitation({ ...data, invitationId, token, category: 'boy', tokenExpiresAt });
 
   document.getElementById('appContainer').innerHTML = `
-    <button class="back-btn" onclick="window.location.href='form.html'">← Atrás</button>
+    <button class="back-btn" onclick="window.location.href='form.html'">←</button>
     
     <div class="admin-view" style="font-family:${fontFamily};">
       <div class="admin-preview-header" style="background: linear-gradient(135deg, ${color} 0%, ${adjustColorBrightness(color, -20)} 100%);">
