@@ -243,7 +243,6 @@ async function renderAdminView() {
   // Guardar invitación en Firebase con ID, token, categoría y caducidad
   await saveInvitation({ ...data, invitationId, token, category: 'girl', tokenExpiresAt });
 
-  const lang = getLang();
   const moreLabel = lang === 'en' ? 'more...' : 'más...';
   const adminTemplate = `
     <button class="back-btn" onclick="window.location.href='form.html'">←</button>
