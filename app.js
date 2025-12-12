@@ -601,7 +601,8 @@ function initAdminView() {
             const genderFolder = appState.gender === 'M' ? 'boy' : 'girl';
             
             // Redireccionar a la página de color
-            window.location.href = `pages/${genderFolder}/color.html`;
+            const basePath = window.location.pathname.includes('baby-shower-app') ? '/baby-shower-app' : '';
+            window.location.href = `${basePath}/pages/${genderFolder}/color.html`;
         });
     });
 
