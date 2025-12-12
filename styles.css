@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 :root {
     --primary-color: #3b82f6;
     --secondary-color: #ec4899;
@@ -22,14 +29,31 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* Pantallas */
 .screen {
     display: none;
     min-height: 100vh;
-    padding: 20px;
+    width: 100%;
+    padding: 16px;
     animation: fadeIn 0.3s ease;
+}
+
+@media (min-width: 640px) {
+    .screen {
+        padding: 24px;
+    }
+}
+
+@media (min-width: 768px) {
+    .screen {
+        padding: 32px 24px;
+    }
 }
 
 .screen.active {
@@ -49,40 +73,52 @@ body {
 
 /* Contenedor */
 .container, .guest-container {
+    width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0;
 }
 
 @media (min-width: 640px) {
     .container, .guest-container {
         max-width: 640px;
+        padding: 0;
     }
 }
 
 @media (min-width: 768px) {
     .container, .guest-container {
-        max-width: 768px;
+        max-width: 728px;
+        padding: 0;
     }
 }
 
 @media (min-width: 1024px) {
     .container, .guest-container {
-        max-width: 900px;
+        max-width: 960px;
+        padding: 0;
     }
 }
 
 .header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     position: relative;
-    padding: 0 48px;
+    padding: 0 16px;
+    width: 100%;
 }
 
-@media (max-width: 639px) {
+@media (min-width: 640px) {
     .header {
-        padding: 0 56px;
-        margin-bottom: 24px;
+        padding: 0 32px;
+        margin-bottom: 28px;
+    }
+}
+
+@media (min-width: 768px) {
+    .header {
+        padding: 0 40px;
+        margin-bottom: 32px;
     }
 }
 /* Secciones de preview a todo ancho, sin esquinas redondeadas */
@@ -314,9 +350,10 @@ body {
 /* Grid de Colores */
 .color-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
     margin-bottom: 40px;
+    padding: 0 8px;
 }
 
 .color-option {
@@ -326,37 +363,21 @@ body {
     border: 4px solid transparent;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    min-height: 100px;
-}
-
-.color-option:hover {
-    transform: scale(1.08);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
-}
-
-.color-option.selected {
-    border-color: var(--text-dark);
-    transform: scale(1.08);
-    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.15);
 }
 
 @media (min-width: 640px) {
     .color-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-    }
-    .color-option {
-        min-height: 110px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        padding: 0;
     }
 }
 
 @media (min-width: 768px) {
     .color-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 24px;
-    }
-    .color-option {
-        min-height: 130px;
+        gap: 20px;
+        padding: 0;
     }
 }
 
@@ -364,16 +385,16 @@ body {
 .effects-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 12px;
     margin-bottom: 32px;
-    padding: 0 8px;
+    padding: 0;
 }
 
 .effect-option {
     background: linear-gradient(135deg, var(--white) 0%, #fafafa 100%);
     border: 3px solid var(--border-color);
     border-radius: 20px;
-    padding: 32px 16px;
+    padding: 24px 16px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -384,16 +405,27 @@ body {
     text-align: center;
     position: relative;
     overflow: hidden;
-    min-height: 160px;
+    min-height: 140px;
 }
 
 @media (min-width: 640px) {
     .effects-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .effect-option {
+        padding: 28px 16px;
+        min-height: 160px;
+    }
+}
+
+@media (min-width: 768px) {
+    .effects-grid {
+        grid-template-columns: repeat(3, 1fr);
         gap: 20px;
     }
     .effect-option {
-        padding: 36px 20px;
+        padding: 32px 16px;
         min-height: 180px;
     }
 }
@@ -793,8 +825,8 @@ body.girl-theme .effect-option.selected {
 }
 
 .effect-icon {
-    width: 72px;
-    height: 72px;
+    width: 68px;
+    height: 68px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -807,6 +839,14 @@ body.girl-theme .effect-option.selected {
 }
 
 @media (min-width: 640px) {
+    .effect-icon {
+        width: 72px;
+        height: 72px;
+        padding: 16px;
+    }
+}
+
+@media (min-width: 768px) {
     .effect-icon {
         width: 64px;
         height: 64px;
@@ -964,25 +1004,36 @@ body.girl-theme .selected-effect-tag:hover {
 .theme-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 12px;
     margin-bottom: 40px;
-    padding: 0 8px;
+    padding: 0;
 }
 
 .theme-option {
     background: linear-gradient(135deg, var(--white) 0%, #f9fafb 100%);
     border: 3px solid var(--border-color);
     border-radius: 20px;
-    padding: 32px 24px;
+    padding: 24px 20px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
-    min-height: 120px;
+    min-height: 100px;
 }
 
 @media (min-width: 640px) {
+    .theme-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .theme-option {
+        padding: 28px 24px;
+        min-height: 110px;
+    }
+}
+
+@media (min-width: 768px) {
     .theme-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
@@ -1063,6 +1114,13 @@ body.girl-theme .theme-option.selected {
 }
 
 @media (min-width: 640px) {
+    .theme-icon {
+        width: 75px;
+        height: 75px;
+    }
+}
+
+@media (min-width: 768px) {
     .theme-icon {
         width: 70px;
         height: 70px;
@@ -1662,20 +1720,13 @@ body.girl-theme .radio-option:has(input:checked) {
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 32px);
-    max-width: 100%;
+    max-width: calc(100% - 32px);
     padding: 18px 28px;
     border: none;
     border-radius: 50px;
     font-size: 1.15rem;
     font-weight: 700;
     letter-spacing: 0.02em;
-
-@media (min-width: 640px) {
-    .floating-action-btn {
-        max-width: 600px;
-        width: calc(100% - 40px);
-    }
-}
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: inherit;
@@ -1687,6 +1738,13 @@ body.girl-theme .radio-option:has(input:checked) {
     align-items: center;
     justify-content: center;
     gap: 8px;
+}
+
+@media (min-width: 640px) {
+    .floating-action-btn {
+        max-width: 600px;
+        width: auto;
+    }
 }
 
 .floating-action-btn:hover {
