@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baby Shower - Invitación Digital</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <!-- Firebase compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+  <script src="../../firebase.js"></script>
+  <style>
+    /* Spinner de carga */
+    .loading-spinner {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    .loading-spinner.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #f0f0f0;
+      border-top-color: var(--primary-color, #E91E63);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    /* Animaciones de efectos flotantes - contenidos dentro del hero-banner */
+    .ball-field {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      --ball-size: 50px;
+      overflow: hidden;
+    }
+    .mini-ball {
+      position: absolute;
+      top: var(--start-y, 10%);
+      left: var(--start-x, 10%);
+      width: var(--ball-size);
+      height: var(--ball-size);
+      opacity: 0.35;
+      animation: floatRand var(--move-dur, 30s) ease-in-out infinite alternate,
+                 zoomSpin 36s linear infinite;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));
+    }
+    @keyframes floatRand {
+      0% { top: var(--start-y, 10%); left: var(--start-x, 10%); opacity: 0; }
+      10% { opacity: 1; }
+      100% { top: var(--end-y, 80%); left: var(--end-x, 80%); opacity: 1; }
+    }
+
+    /* Suave sensación de zoom y giro para movimiento más orgánico */
+    @keyframes zoomSpin {
+      0%   { transform: scale(var(--zoom-min, 0.92)) rotate(0deg); }
+      50%  { transform: scale(var(--zoom-max, 1.06)) rotate(180deg); }
+      100% { transform: scale(var(--zoom-min, 0.92)) rotate(360deg); }
+    }
+    @keyframes roamBall1 {
+      0%   { top: 6%;  left: 50%; }
+      12%  { top: 10%; left: 82%; }
+      25%  { top: 40%; left: 88%; }
+      38%  { top: 82%; left: 78%; }
+      50%  { top: 90%; left: 50%; }
+      62%  { top: 82%; left: 22%; }
+      75%  { top: 45%; left: 12%; }
+      88%  { top: 12%; left: 20%; }
+      100% { top: 6%;  left: 50%; }
+    }
+    @keyframes roamBall2 {
+      0%   { top: 18%; left: 78%; }
+      14%  { top: 32%; left: 46%; }
+      28%  { top: 12%; left: 14%; }
+      42%  { top: 44%; left: 12%; }
+      56%  { top: 82%; left: 32%; }
+      70%  { top: 62%; left: 70%; }
+      84%  { top: 26%; left: 90%; }
+      100% { top: 18%; left: 78%; }
+    }
+    @keyframes roamBall3 {
+      0%   { top: 32%; left: 12%; }
+      15%  { top: 10%; left: 40%; }
+      30%  { top: 24%; left: 78%; }
+      45%  { top: 60%; left: 88%; }
+      60%  { top: 86%; left: 56%; }
+      75%  { top: 68%; left: 22%; }
+      90%  { top: 42%; left: 46%; }
+      100% { top: 32%; left: 12%; }
+    }
+
+    /* Estilos para encabezado de vista previa en administrador */
+    .admin-preview-header {
+      position: relative;
+      border-radius: 16px;
+      padding: 40px 20px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Estilos para Vista Administrador */
+    .admin-view {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .baby-name-highlight {
+      color: #ffffff !important;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .summary-section {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .summary-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .summary-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    .summary-label {
+      font-weight: 600;
+      min-width: 120px;
+      color: #666;
+    }
+    .summary-value {
+      color: #333;
+      flex: 1;
+    }
+    .color-preview {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+    }
+    .share-section {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .invitation-url {
+      background: #f8f9fa;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: monospace;
+      word-break: break-all;
+      margin: 12px 0;
+      border: 1px solid #e0e0e0;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      justify-content: center;
+    }
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      justify-content: center;
+      min-width: 200px;
+    }
+    .btn-primary {
+      background: var(--primary-color, #E91E63);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #20BA5A;
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: #007bff;
+      color: white;
+    }
+    .btn-secondary:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: white;
+      border: 2px solid var(--primary-color, #E91E63);
+      color: var(--primary-color, #E91E63);
+    }
+    .btn-outline:hover {
+      background: var(--primary-color, #E91E63);
+      color: white;
+    }
+
+    /* Estilos para Vista Invitado */
+    .guest-view {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    .invitation-card-header {
+      position: relative;
+      z-index: 10;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+    }
+    .baby-silhouette {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    }
+    .main-announcement {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .parents-names {
+      font-size: 20px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .celebration-text {
+      font-size: 18px;
+      margin-bottom: 20px;
+      opacity: 0.95;
+    }
+    .baby-name-highlight {
+      font-size: 48px;
+      font-weight: 800;
+      margin: 20px 0;
+      color: #ffffff !important;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .event-details {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .event-detail-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 18px;
+    }
+    .detail-icon {
+      width: 24px;
+      height: 24px;
+    }
+    
+    /* Tabs Navigation */
+    .tabs-navigation {
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .tab-button {
+      flex: 1;
+      padding: 16px 12px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #666;
+      font-size: 14px;
+      position: relative;
+    }
+    .tab-button::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 80%;
+      height: 3px;
+      background: var(--primary-color, #E91E63);
+      border-radius: 2px 2px 0 0;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .tab-button.active {
+      color: var(--primary-color, #E91E63);
+      font-weight: 600;
+      background: linear-gradient(to bottom, rgba(233,30,99,0.05), transparent);
+    }
+    .tab-button.active::before {
+      transform: translateX(-50%) scaleX(1);
+    }
+    .tab-button:hover {
+      background: linear-gradient(to bottom, rgba(233,30,99,0.03), transparent);
+      transform: translateY(-2px);
+    }
+    .tab-icon { width: 22px; height: 22px; }
+    
+    /* Tab Content */
+    .tab-content {
+      display: none;
+      padding: 24px;
+      background: #ffffff;
+      min-height: 400px;
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+      background: #ffffff;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .tab-content-card {
+      background: white;
+      padding: 24px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .message-content {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #555;
+      text-align: justify;
+    }
+    .location-info {
+      margin-bottom: 20px;
+    }
+    .address-text {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .map-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn { border-radius: 12px; }
+    .btn-primary, .btn-secondary {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .btn-primary:hover, .btn-secondary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .gift-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 12px;
+    }
+    .gift-item {
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color, #E91E63);
+      font-size: 16px;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+    .gift-item:hover {
+      background: #e9ecef;
+      transform: translateX(4px);
+    }
+    .confirm-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-label {
+      font-weight: 600;
+      color: #333;
+    }
+    .form-input {
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color, #E91E63);
+      box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+    }
+    .confirm-status {
+      background: #f8f9fa;
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .confirmed-count {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary-color, #E91E63);
+    }
+    .back-btn-admin {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    .back-btn-admin:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body>
+  <div id="loadingSpinner" class="loading-spinner">
+    <div class="spinner"></div>
+  </div>
+  <div id="appContainer"></div>
+  <script src="girl-preview.js"></script>
+</body>
+</html>

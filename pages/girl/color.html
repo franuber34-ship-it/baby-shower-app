@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Color - Niña</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <button class="back-btn" onclick="window.location.href='../../index.html'">← Atrás</button>
+      <h2>Elige el color</h2>
+    </div>
+    <div id="colorOptions" class="color-grid"></div>
+    <button class="floating-action-btn" id="continueBtn">Continuar →</button>
+  </div>
+  <script src="girl-color.js"></script>
+  <script>
+    document.getElementById('continueBtn').addEventListener('click', function() {
+      const color = window.appState?.selectedColor;
+      if (!color) {
+        alert('Por favor selecciona un color.');
+        return;
+      }
+      localStorage.setItem('girlSelectedColor', color);
+      window.location.href = 'effects.html';
+    });
+  </script>
+</body>
+</html>

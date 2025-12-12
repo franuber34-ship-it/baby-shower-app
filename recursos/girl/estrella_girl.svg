@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2019 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="80px" height="80px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 8.66 8.66"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil1 {fill:none}
+    .fil0 {fill:black}
+   ]]>
+  </style>
+   <clipPath id="id0">
+    <path d="M4.33 0c2.39,0 4.33,1.94 4.33,4.33 0,2.39 -1.94,4.33 -4.33,4.33 -2.39,0 -4.33,-1.94 -4.33,-4.33 0,-2.39 1.94,-4.33 4.33,-4.33z"/>
+   </clipPath>
+ </defs>
+ <g id="Capa_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g>
+  </g>
+  <g style="clip-path:url(#id0)">
+   <g>
+    <polygon class="fil0" points="4.33,1.03 5.14,3.56 7.8,3.55 5.65,5.11 6.47,7.63 4.33,6.06 2.19,7.63 3.01,5.11 0.86,3.55 3.52,3.56 "/>
+   </g>
+  </g>
+  <path class="fil1" d="M4.33 0c2.39,0 4.33,1.94 4.33,4.33 0,2.39 -1.94,4.33 -4.33,4.33 -2.39,0 -4.33,-1.94 -4.33,-4.33 0,-2.39 1.94,-4.33 4.33,-4.33z"/>
+ </g>
+</svg>

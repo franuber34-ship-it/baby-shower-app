@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Efectos - Niña</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    /* Animación de mini-elementos recorriendo todo el botón */
+    .ball-field {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      --ball-size: 25px;
+      overflow: hidden;
+    }
+
+    .main-ball-icon {
+      position: relative;
+      z-index: 1;
+    }
+
+    .mini-ball {
+      position: absolute;
+      width: var(--ball-size);
+      height: var(--ball-size);
+      opacity: 0.35;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    .mini-ball-1 {
+      animation-name: roamBall1;
+      animation-duration: 7s;
+      animation-delay: -1.4s;
+      animation-direction: normal;
+    }
+
+    .mini-ball-2 {
+      animation-name: roamBall2;
+      animation-duration: 7.6s;
+      animation-delay: -2s;
+      animation-direction: alternate-reverse;
+    }
+
+    .mini-ball-3 {
+      animation-name: roamBall3;
+      animation-duration: 8.2s;
+      animation-delay: -2.6s;
+      animation-direction: alternate;
+    }
+
+    @keyframes roamBall1 {
+      0%   { top: 6%;  left: 50%; }
+      12%  { top: 10%; left: 82%; }
+      25%  { top: 40%; left: 88%; }
+      38%  { top: 82%; left: 78%; }
+      50%  { top: 90%; left: 50%; }
+      62%  { top: 82%; left: 22%; }
+      75%  { top: 45%; left: 12%; }
+      88%  { top: 12%; left: 20%; }
+      100% { top: 6%;  left: 50%; }
+    }
+
+    @keyframes roamBall2 {
+      0%   { top: 18%; left: 78%; }
+      14%  { top: 32%; left: 46%; }
+      28%  { top: 12%; left: 14%; }
+      42%  { top: 44%; left: 12%; }
+      56%  { top: 82%; left: 32%; }
+      70%  { top: 62%; left: 70%; }
+      84%  { top: 26%; left: 90%; }
+      100% { top: 18%; left: 78%; }
+    }
+
+    @keyframes roamBall3 {
+      0%   { top: 32%; left: 12%; }
+      15%  { top: 10%; left: 40%; }
+      30%  { top: 24%; left: 78%; }
+      45%  { top: 60%; left: 88%; }
+      60%  { top: 86%; left: 56%; }
+      75%  { top: 68%; left: 22%; }
+      90%  { top: 42%; left: 46%; }
+      100% { top: 32%; left: 12%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <button class="back-btn" onclick="window.location.href='color.html'">← Atrás</button>
+      <h2>Efectos Flotantes</h2>
+      <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 12px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.5;">Personaliza tu invitación seleccionando hasta 3 efectos decorativos</p>
+    </div>
+    <div id="effectsOptions" class="effects-grid"></div>
+    <div class="selected-effects">
+      <p>Efectos seleccionados: <span id="effectCount">0</span>/3</p>
+      <div id="selectedEffectsList" class="selected-effects-list"></div>
+    </div>
+    <button class="floating-action-btn" id="continueBtn">Continuar →</button>
+  </div>
+  <script src="girl-effects.js"></script>
+  <script>
+    document.getElementById('continueBtn').addEventListener('click', function() {
+      const effects = window.appState?.selectedEffects || [];
+      if (effects.length === 0) {
+        alert('Por favor selecciona al menos un efecto.');
+        return;
+      }
+      localStorage.setItem('girlSelectedEffects', JSON.stringify(effects));
+      window.location.href = 'theme.html';
+    });
+  </script>
+</body>
+</html>

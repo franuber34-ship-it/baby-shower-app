@@ -214,8 +214,6 @@ const translations = {
         effectTools: 'Tools',
         effectStars: 'Stars',
         effectLeaves: 'Leaves',
-        effectCars: 'Cars',
-        effectTools: 'Tools',
         
         // Themes
         themeClassic: 'Classic Elegant',
@@ -391,7 +389,7 @@ const firebaseConfig = {
     authDomain: "baby-shower-app-1c029.firebaseapp.com",
     databaseURL: "https://baby-shower-app-1c029-default-rtdb.firebaseio.com",
     projectId: "baby-shower-app-1c029",
-    storageBucket: "baby-shower-app-1c029.firebasestorage.app",
+    storageBucket: "baby-shower-app-1c029.appspot.com",
     messagingSenderId: "475479297496",
     appId: "1:475479297496:web:e09c0c7f28a2ec857576ad"
 };
@@ -399,9 +397,13 @@ const firebaseConfig = {
 // Inicializar Firebase
 let database;
 try {
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+        console.log('✅ Firebase inicializado correctamente');
+    } else {
+        console.log('ℹ️ Firebase ya estaba inicializado, reutilizando instancia existente');
+    }
     database = firebase.database();
-    console.log('✅ Firebase inicializado correctamente');
 } catch (error) {
     console.error('❌ Error al inicializar Firebase:', error);
 }
@@ -543,6 +545,9 @@ const giftsList = [
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 App iniciada - Archivo cargado:', window.location.pathname);
+    console.log('📄 Es index.html:', window.location.pathname.includes('index.html'));
+    
     // Inicializar idioma (prioridad: localStorage > idioma del navegador > español)
     const savedLanguage = localStorage.getItem('babyShowerLanguage');
     const browserLanguage = detectBrowserLanguage();
@@ -593,10 +598,10 @@ function initAdminView() {
             e.currentTarget.classList.add('selected');
             
             appState.gender = e.currentTarget.dataset.gender;
-            appState.selectedEffects = []; // Limpiar efectos al cambiar género
-            document.body.className = appState.gender === 'M' ? 'boy-theme' : 'girl-theme';
-            loadColors();
-            nextScreen('colorScreen');
+            const genderFolder = appState.gender === 'M' ? 'boy' : 'girl';
+            
+            // Redireccionar a la página de color
+            window.location.href = `pages/${genderFolder}/color.html`;
         });
     });
 
