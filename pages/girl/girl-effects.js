@@ -15,13 +15,22 @@ const svgTemplates = {
 
 const floatingEffects = {
     F: [
-        { id: 'corazon', name: 'Corazón' },
-        { id: 'estrella', name: 'Estrella' },
-        { id: 'hojas', name: 'Hojas' },
-        { id: 'huella', name: 'Huellas' },
-        { id: 'ondas', name: 'Olas' },
-        { id: 'animales', name: 'Animales' }
+        { id: 'corazon' },
+        { id: 'estrella' },
+        { id: 'hojas' },
+        { id: 'huella' },
+        { id: 'ondas' },
+        { id: 'animales' }
     ]
+};
+
+const effectLabels = {
+    corazon: { es: 'Corazón', en: 'Heart' },
+    estrella: { es: 'Estrella', en: 'Star' },
+    hojas: { es: 'Hojas', en: 'Leaves' },
+    huella: { es: 'Huellas', en: 'Footprints' },
+    ondas: { es: 'Olas', en: 'Waves' },
+    animales: { es: 'Animales', en: 'Animals' }
 };
 
 const langMap = {
@@ -50,6 +59,13 @@ let feedbackTimeoutId = null;
 
 function getLang() {
     return localStorage.getItem('babyShowerLanguage') || 'es';
+}
+
+function getEffectLabel(effectId) {
+    const lang = getLang();
+    const label = effectLabels[effectId];
+    if (!label) return effectId;
+    return label[lang] || label.es;
 }
 
 function applyLanguage() {
@@ -113,16 +129,17 @@ function renderEffectsOptions() {
         const mini1 = getColoredSVG(effect.id, selectedColor).replace('<svg', '<svg class="mini-ball mini-ball-1"');
         const mini2 = getColoredSVG(effect.id, selectedColor).replace('<svg', '<svg class="mini-ball mini-ball-2"');
         const mini3 = getColoredSVG(effect.id, selectedColor).replace('<svg', '<svg class="mini-ball mini-ball-3"');
+        const label = getEffectLabel(effect.id);
         
         return `
-            <div class="effect-option" data-effect="${effect.id}" title="${effect.name}">
+            <div class="effect-option" data-effect="${effect.id}" title="${label}">
                 <div class="ball-field">
                     ${mini1}
                     ${mini2}
                     ${mini3}
                 </div>
                 <div class="effect-icon main-ball-icon">${mainIcon}</div>
-                <span>${effect.name}</span>
+                <span>${label}</span>
             </div>
         `;
     }).join('');
@@ -168,7 +185,8 @@ function updateSelectedEffectsUI() {
     if (selectedList) {
         selectedList.innerHTML = window.appState.selectedEffects.map(id => {
             const eff = effects.find(e => e.id === id);
-            return `<span class="selected-effect-label">${eff.name}</span>`;
+            const label = getEffectLabel(id);
+            return `<span class="selected-effect-label">${label}</span>`;
         }).join(' ');
     }
 }

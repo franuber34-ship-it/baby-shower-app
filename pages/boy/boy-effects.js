@@ -1,13 +1,22 @@
 // Efectos flotantes para niño
 const floatingEffects = {
     M: [
-        { id: 'football', name: 'Balón', icon: '<img src="../../recursos/boy/balon_boy.svg" alt="Balón" width="32" height="32">' },
-        { id: 'footprints', name: 'Huellas', icon: '<img src="../../recursos/boy/huella_boy.svg" alt="Huellas" width="32" height="32">' },
-        { id: 'animals', name: 'Animales', icon: '<img src="../../recursos/boy/animales_boy.svg" alt="Animales" width="32" height="32">' },
-        { id: 'waves', name: 'Olas', icon: '<img src="../../recursos/boy/ondas_boy.svg" alt="Olas" width="32" height="32">' },
-        { id: 'cars', name: 'Carros', icon: '<img src="../../recursos/boy/carros_boy.svg" alt="Carros" width="32" height="32">' },
-        { id: 'tools', name: 'Herramientas', icon: '<img src="../../recursos/boy/herramientas_boy.svg" alt="Herramientas" width="32" height="32">' }
+        { id: 'football', icon: '<img src="../../recursos/boy/balon_boy.svg" alt="Balón" width="32" height="32">' },
+        { id: 'footprints', icon: '<img src="../../recursos/boy/huella_boy.svg" alt="Huellas" width="32" height="32">' },
+        { id: 'animals', icon: '<img src="../../recursos/boy/animales_boy.svg" alt="Animales" width="32" height="32">' },
+        { id: 'waves', icon: '<img src="../../recursos/boy/ondas_boy.svg" alt="Olas" width="32" height="32">' },
+        { id: 'cars', icon: '<img src="../../recursos/boy/carros_boy.svg" alt="Carros" width="32" height="32">' },
+        { id: 'tools', icon: '<img src="../../recursos/boy/herramientas_boy.svg" alt="Herramientas" width="32" height="32">' }
     ]
+};
+
+const effectLabels = {
+    football: { es: 'Balón', en: 'Ball' },
+    footprints: { es: 'Huellas', en: 'Footprints' },
+    animals: { es: 'Animales', en: 'Animals' },
+    waves: { es: 'Olas', en: 'Waves' },
+    cars: { es: 'Carros', en: 'Cars' },
+    tools: { es: 'Herramientas', en: 'Tools' }
 };
 
 window.appState = { selectedEffects: [] };
@@ -38,6 +47,13 @@ let feedbackTimeoutId = null;
 
 function getLang() {
     return localStorage.getItem('babyShowerLanguage') || 'es';
+}
+
+function getEffectLabel(effectId) {
+    const lang = getLang();
+    const label = effectLabels[effectId];
+    if (!label) return effectId;
+    return label[lang] || label.es;
 }
 
 function applyLanguage() {
@@ -117,14 +133,15 @@ function renderEffectsOptions() {
         const mini1 = getEffectSVG(effect.id, selectedColor, 25).replace('<svg', '<svg class="mini-ball mini-ball-1"');
         const mini2 = getEffectSVG(effect.id, selectedColor, 25).replace('<svg', '<svg class="mini-ball mini-ball-2"');
         const mini3 = getEffectSVG(effect.id, selectedColor, 25).replace('<svg', '<svg class="mini-ball mini-ball-3"');
-        return `<div class="effect-option" data-effect="${effect.id}" title="${effect.name}">
+        const label = getEffectLabel(effect.id);
+        return `<div class="effect-option" data-effect="${effect.id}" title="${label}">
             <div class="ball-field">
                 ${mini1}
                 ${mini2}
                 ${mini3}
             </div>
             <div class="effect-icon main-ball-icon">${mainIcon}</div>
-            <span>${effect.name}</span>
+            <span>${label}</span>
         </div>`;
     }).join('');
 

@@ -1,10 +1,18 @@
 ﻿const themes = [
-    { id: 'classic', name: 'Clásico', desc: 'Tipografía tradicional y elegante', fontFamily: 'Georgia, serif' },
-    { id: 'modern', name: 'Moderno', desc: 'Estilo limpio y actual', fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' },
-    { id: 'playful', name: 'Divertido', desc: 'Tipografía alegre y desenfadada', fontFamily: 'Comic Sans MS, cursive' },
-    { id: 'elegant', name: 'Elegante', desc: 'Estilo sofisticado y refinado', fontFamily: 'Garamond, serif' },
-    { id: 'bold', name: 'Negrita', desc: 'Tipografía fuerte y llamativa', fontFamily: 'Arial Black, sans-serif' }
+    { id: 'classic', fontFamily: 'Georgia, serif' },
+    { id: 'modern', fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' },
+    { id: 'playful', fontFamily: 'Comic Sans MS, cursive' },
+    { id: 'elegant', fontFamily: 'Garamond, serif' },
+    { id: 'bold', fontFamily: 'Arial Black, sans-serif' }
 ];
+
+const themeLabels = {
+    classic: { es: { name: 'Clásico', desc: 'Tipografía tradicional y elegante' }, en: { name: 'Classic', desc: 'Traditional and elegant typography' } },
+    modern: { es: { name: 'Moderno', desc: 'Estilo limpio y actual' }, en: { name: 'Modern', desc: 'Clean and contemporary style' } },
+    playful: { es: { name: 'Divertido', desc: 'Tipografía alegre y desenfadada' }, en: { name: 'Playful', desc: 'Cheerful and relaxed typography' } },
+    elegant: { es: { name: 'Elegante', desc: 'Estilo sofisticado y refinado' }, en: { name: 'Elegant', desc: 'Sophisticated and refined style' } },
+    bold: { es: { name: 'Negrita', desc: 'Tipografía fuerte y llamativa' }, en: { name: 'Bold', desc: 'Strong and striking typography' } }
+};
 window.appState = window.appState || {};
 window.appState.selectedTheme = null;
 
@@ -30,6 +38,13 @@ let feedbackTimeoutId = null;
 
 function getLang() {
     return localStorage.getItem('babyShowerLanguage') || 'es';
+}
+
+function getThemeText(themeId) {
+    const lang = getLang();
+    const entry = themeLabels[themeId];
+    if (!entry) return { name: themeId, desc: '' };
+    return entry[lang] || entry.es;
 }
 
 function applyLanguage() {
@@ -69,9 +84,9 @@ function renderThemeOptions() {
     document.documentElement.style.setProperty('--primary-color', selectedColor);
 
     themeOptions.innerHTML = themes.map((theme, index) => `
-        <div class="theme-option" data-theme="${theme.id}" title="${theme.name}" style="font-family: ${theme.fontFamily};">
-            <span class="theme-name">${theme.name}</span>
-            <span class="theme-desc">${theme.desc}</span>
+        <div class="theme-option" data-theme="${theme.id}" title="${getThemeText(theme.id).name}" style="font-family: ${theme.fontFamily};">
+            <span class="theme-name">${getThemeText(theme.id).name}</span>
+            <span class="theme-desc">${getThemeText(theme.id).desc}</span>
         </div>
     `).join('');
     themeOptions.querySelectorAll('.theme-option').forEach((opt, i) => {

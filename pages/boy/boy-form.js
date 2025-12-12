@@ -25,6 +25,88 @@ const countryOptions = [
 
 const COUNTRY_STORAGE_KEY = 'invitationCountryCode';
 
+const langMap = {
+  es: {
+    pageTitle: 'Formulario - Niño',
+    title: 'Completa la información',
+    whatsapp: 'WhatsApp de Contacto',
+    countryPlaceholder: 'Códigos de país',
+    phonePlaceholder: '987654321',
+    babyInfo: 'Información del Bebé',
+    babyName: 'Nombre del bebé',
+    parents: 'Padres',
+    fatherName: 'Nombre del papá',
+    motherName: 'Nombre de la mamá',
+    event: 'Fecha y Hora del Evento',
+    location: 'Ubicación',
+    address: 'Dirección completa del evento',
+    mapsLink: 'Enlace de Google Maps (opcional)',
+    wazeLink: 'Enlace de Waze (opcional)',
+    message: 'Mensaje de Invitación',
+    messagePlaceholder: 'Escribe un mensaje especial para tus invitados...',
+    gifts: 'Lista de Regalos',
+    giftDefault: 'Usar lista de regalos por defecto',
+    giftCustom: 'Agregar mi propia lista',
+    customGiftsPlaceholder: 'Escribe cada regalo en una línea nueva\nEjemplo:\nPañales\nBiberón\nRopa de bebé',
+    continue: 'Continuar →',
+    phoneError: '⚠️ Ingresa un número válido de 8 a 15 dígitos (solo números)',
+    countryError: '⚠️ Selecciona un código de país'
+  },
+  en: {
+    pageTitle: 'Form - Boy',
+    title: 'Complete the information',
+    whatsapp: 'WhatsApp Contact',
+    countryPlaceholder: 'Country codes',
+    phonePlaceholder: '987654321',
+    babyInfo: 'Baby Information',
+    babyName: 'Baby name',
+    parents: 'Parents',
+    fatherName: 'Father\'s name',
+    motherName: 'Mother\'s name',
+    event: 'Event Date & Time',
+    location: 'Location',
+    address: 'Full event address',
+    mapsLink: 'Google Maps link (optional)',
+    wazeLink: 'Waze link (optional)',
+    message: 'Invitation Message',
+    messagePlaceholder: 'Write a special message for your guests...',
+    gifts: 'Gift List',
+    giftDefault: 'Use default gift list',
+    giftCustom: 'Add my own list',
+    customGiftsPlaceholder: 'Write each gift on a new line\nExample:\nDiapers\nBaby bottle\nBaby clothes',
+    continue: 'Continue →',
+    phoneError: '⚠️ Enter a valid number of 8 to 15 digits (numbers only)',
+    countryError: '⚠️ Select a country code'
+  }
+};
+
+const defaultGifts = {
+  es: [
+    'Pañales talla 1',
+    'Fórmula infantil',
+    'Biberones',
+    'Ropa de bebé (0-3 meses)',
+    'Mudas y baberos',
+    'Toallitas húmedas',
+    'Crema para el pañal',
+    'Mantas y cobijas',
+    'Juguetes sonajeros',
+    'Cuna portátil'
+  ],
+  en: [
+    'Size 1 diapers',
+    'Infant formula',
+    'Baby bottles',
+    'Baby clothes (0-3 months)',
+    'Burp cloths and bibs',
+    'Baby wipes',
+    'Diaper cream',
+    'Blankets',
+    'Rattle toys',
+    'Portable crib'
+  ]
+};
+
 function detectPreferredIso() {
   const stored = localStorage.getItem(COUNTRY_STORAGE_KEY);
   if (stored) return stored;
@@ -37,6 +119,20 @@ function detectPreferredIso() {
     es: 'ES', en: 'US', pt: 'BR', fr: 'FR', it: 'IT', de: 'DE', hi: 'IN', tl: 'PH'
   };
   return langFallback[langCode] || 'ES';
+}
+
+function getLang() {
+  return localStorage.getItem('babyShowerLanguage') || 'es';
+}
+
+function getTexts() {
+  const lang = getLang();
+  return langMap[lang] || langMap.es;
+}
+
+function getDefaultGifts() {
+  const lang = getLang();
+  return defaultGifts[lang] || defaultGifts.es;
 }
 
 function renderCountrySelect(selectEl) {
@@ -64,21 +160,54 @@ function getBoyFormData() {
   };
 }
 
-// Regalos predefinidos para niño
-const defaultGiftsBoy = [
-  'Pañales talla 1',
-  'Fórmula infantil',
-  'Biberones',
-  'Ropa de bebé (0-3 meses)',
-  'Mudas y baberos',
-  'Toallitas húmedas',
-  'Crema para el pañal',
-  'Mantas y cobijas',
-  'Juguetes sonajeros',
-  'Cuna portátil'
-];
+function applyLanguage() {
+  const t = getTexts();
+  document.documentElement.lang = getLang();
+  document.title = t.pageTitle;
+
+  const headerTitle = document.querySelector('.header h2');
+  if (headerTitle) headerTitle.textContent = t.title;
+
+  const sectionTitles = document.querySelectorAll('.form-section-title');
+  const order = [t.whatsapp, t.babyInfo, t.parents, t.event, t.location, t.message, t.gifts];
+  sectionTitles.forEach((el, idx) => {
+    if (order[idx]) el.textContent = order[idx];
+  });
+
+  const countrySelect = document.getElementById('countryCode');
+  if (countrySelect && countrySelect.options[0]) {
+    countrySelect.options[0].textContent = t.countryPlaceholder;
+  }
+
+  const phoneInput = document.getElementById('phoneNumber');
+  if (phoneInput) phoneInput.placeholder = t.phonePlaceholder;
+  const babyNameInput = document.getElementById('babyName');
+  if (babyNameInput) babyNameInput.placeholder = t.babyName;
+  const fatherInput = document.getElementById('fatherName');
+  if (fatherInput) fatherInput.placeholder = t.fatherName;
+  const motherInput = document.getElementById('motherName');
+  if (motherInput) motherInput.placeholder = t.motherName;
+  const addressInput = document.getElementById('address');
+  if (addressInput) addressInput.placeholder = t.address;
+  const gmInput = document.getElementById('googleMapsLink');
+  if (gmInput) gmInput.placeholder = t.mapsLink;
+  const wazeInput = document.getElementById('wazeLink');
+  if (wazeInput) wazeInput.placeholder = t.wazeLink;
+  const messageArea = document.getElementById('invitationMessage');
+  if (messageArea) messageArea.placeholder = t.messagePlaceholder;
+  const customGiftList = document.getElementById('customGiftList');
+  if (customGiftList) customGiftList.placeholder = t.customGiftsPlaceholder;
+
+  const giftLabels = document.querySelectorAll('.gift-option-label span');
+  if (giftLabels[0]) giftLabels[0].textContent = t.giftDefault;
+  if (giftLabels[1]) giftLabels[1].textContent = t.giftCustom;
+
+  const submitBtn = document.querySelector('.floating-action-btn');
+  if (submitBtn) submitBtn.textContent = t.continue;
+}
 
 document.addEventListener('DOMContentLoaded', function() {
+  applyLanguage();
   const selectedColor = localStorage.getItem('boySelectedColor') || '#3498DB';
   document.documentElement.style.setProperty('--primary-color', selectedColor);
   
@@ -127,15 +256,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const data = getBoyFormData();
     const countryCode = document.getElementById('countryCode').value;
     const phoneNumber = document.getElementById('phoneNumber').value;
+    const t = getTexts();
     
     // Validar teléfono
     if (!validatePhoneNumber(phoneNumber)) {
-      alert('⚠️ Ingresa un número válido de 8 a 15 dígitos (solo números)');
+      alert(t.phoneError);
       document.getElementById('phoneNumber').focus();
       return;
     }
     if (!countryCode) {
-      alert('⚠️ Selecciona un código de país');
+      alert(t.countryError);
       countrySelect.focus();
       return;
     }
@@ -160,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .filter(gift => gift.length > 0);
       data.gifts = customGifts;
     } else {
-      data.gifts = defaultGiftsBoy;
+      data.gifts = getDefaultGifts();
     }
     
     localStorage.setItem('boyFormData', JSON.stringify(data));

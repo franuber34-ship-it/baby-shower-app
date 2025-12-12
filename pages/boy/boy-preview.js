@@ -13,6 +13,112 @@ function showLoadingSpinner() {
   }
 }
 
+const langMap = {
+  es: {
+    pageTitle: 'Baby Shower - Invitación Digital',
+    adminError: 'Error al cargar la vista. Por favor intenta de nuevo.',
+    guestError: 'Error al cargar la invitación. Por favor intenta de nuevo.',
+    copyLink: 'Enlace copiado',
+    shareMessage: '¡Estás invitado a mi Baby Shower! 👶\n\nMira los detalles aquí:',
+    rateLimit: '⏳ Ya confirmaste tu asistencia recientemente. Por favor intenta de nuevo en {{minutes}} minuto(s).',
+    successTitle: 'Asistencia confirmada',
+    successLine1: 'Gracias {{name}}',
+    successLine2: 'Se confirmó la asistencia para {{count}} persona(s)',
+    confirmWhatsGreeting: 'Hola, soy {{name}}.',
+    confirmWhatsBody: 'Confirmo mi asistencia al Baby Shower de {{baby}}',
+    confirmWhatsCountSingular: 'persona',
+    confirmWhatsCountPlural: 'personas',
+    confirmWhatsContact: 'Contacto: {{phone}}'
+  },
+  en: {
+    pageTitle: 'Baby Shower - Digital Invitation',
+    adminError: 'Error loading the view. Please try again.',
+    guestError: 'Error loading the invitation. Please try again.',
+    copyLink: 'Link copied',
+    shareMessage: 'You are invited to my Baby Shower! 👶\n\nSee the details here:',
+    rateLimit: '⏳ You already confirmed recently. Please try again in {{minutes}} minute(s).',
+    successTitle: 'Attendance confirmed',
+    successLine1: 'Thank you {{name}}',
+    successLine2: 'Attendance confirmed for {{count}} person(s)',
+    confirmWhatsGreeting: 'Hi, this is {{name}}.',
+    confirmWhatsBody: 'I confirm my attendance to the Baby Shower for {{baby}}',
+    confirmWhatsCountSingular: 'person',
+    confirmWhatsCountPlural: 'people',
+    confirmWhatsContact: 'Contact: {{phone}}'
+  }
+};
+
+function getLang() {
+  return localStorage.getItem('babyShowerLanguage') || 'es';
+}
+
+function getTexts() {
+  const lang = getLang();
+  return langMap[lang] || langMap.es;
+}
+
+function translateHtml(html, lang) {
+  if (lang !== 'en') return html;
+  const replacements = {
+    '¡ES UN NIÑO!': "IT'S A BOY!",
+    'LOS FUTUROS PAPÁS': 'PROUD PARENTS',
+    'Te invitan a celebrar la llegada de': 'Invite you to celebrate the arrival of',
+    'Personalización': 'Customization',
+    'Tema:': 'Theme:',
+    'Color:': 'Color:',
+    'Efectos:': 'Effects:',
+    'seleccionados': 'selected',
+    'Mensaje:': 'Message:',
+    'Lista de Regalos:': 'Gift List:',
+    'Lista de Regalos': 'Gift List',
+    'Compartir Invitación': 'Share Invitation',
+    'Compartir': 'Share',
+    'Copiar enlace': 'Copy link',
+    'Compartir por WhatsApp': 'Share via WhatsApp',
+    'Nueva invitación': 'New invitation',
+    'MENSAJE': 'MESSAGE',
+    'UBICACIÓN': 'LOCATION',
+    'REGALOS': 'GIFTS',
+    'CONFIRMAR': 'CONFIRM',
+    'Mensaje': 'Message',
+    'Ubicación': 'Location',
+    'Confirmar Asistencia': 'Confirm Attendance',
+    'personas confirmadas': 'people confirmed',
+    'Tu nombre': 'Your name',
+    'Tu número de teléfono': 'Your phone number',
+    'NOMBRE COMPLETO': 'FULL NAME',
+    'TELÉFONO': 'PHONE',
+    '¿CUÁNTAS PERSONAS ASISTIRÁN?': 'HOW MANY PEOPLE WILL ATTEND?',
+    'MENSAJE PARA LOS PAPITOS': 'MESSAGE FOR THE PARENTS',
+    'Escribe un mensaje para los futuros papás (opcional)': 'Write a message for the parents (optional)',
+    'CONFIRMAR ASISTENCIA': 'CONFIRM ATTENDANCE',
+    'Abrir en Google Maps': 'Open in Google Maps',
+    'Abrir en Waze': 'Open in Waze',
+    '¡Gracias por acompañarnos en este momento tan especial!': 'Thanks for joining us in this special moment!',
+    'Gracias por acompañarnos en este momento tan especial!': 'Thanks for joining us in this special moment!',
+    'Tu presencia hará este día aún más memorable': 'Your presence will make this day even more memorable',
+    'Ver ruta en Google Maps': 'Open route in Google Maps',
+    'Enlace no válido': 'Invalid link',
+    'Invitación no encontrada': 'Invitation not found',
+    'Enlace vencido': 'Expired link',
+    'Será un placer contar con tu presencia en este día tan especial. ¡Tu compañía hará este momento inolvidable!': 'We would love to have you join us on this special day. Your presence will make it unforgettable!',
+    'No hay datos para mostrar': 'No data to display',
+    'Parece que el formulario no se completó correctamente.': 'It seems the form was not completed correctly.',
+    'Datos en localStorage:': 'Data in localStorage:',
+    'Formulario:': 'Form:',
+    'Volver al Inicio': 'Back to Home',
+    'Datos incompletos': 'Incomplete data',
+    'El formulario parece estar vacío.': 'The form appears to be empty.',
+    'Volver al Formulario': 'Back to the Form'
+  };
+  let localized = html;
+  Object.entries(replacements).forEach(([esText, enText]) => {
+    const re = new RegExp(esText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+    localized = localized.replace(re, enText);
+  });
+  return localized;
+}
+
 function iconSVG(name, color) {
   const c = color || 'currentColor';
   switch (name) {
@@ -38,6 +144,7 @@ function iconSVG(name, color) {
 }
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Preview page loaded');
+  document.title = getTexts().pageTitle;
   showLoadingSpinner();
   // Detectar si es vista de administrador o invitado
   const urlParams = new URLSearchParams(window.location.search);
@@ -48,12 +155,12 @@ document.addEventListener('DOMContentLoaded', function() {
   if (isAdminView) {
     renderAdminView().catch(err => {
       console.error('Error en admin view:', err);
-      alert('Error al cargar la vista. Por favor intenta de nuevo.');
+      alert(getTexts().adminError);
     }).finally(() => hideLoadingSpinner());
   } else {
     renderGuestView(invitationId).catch(err => {
       console.error('Error en guest view:', err);
-      alert('Error al cargar la invitación. Por favor intenta de nuevo.');
+      alert(getTexts().guestError);
     }).finally(() => hideLoadingSpinner());
   }
 });
@@ -66,6 +173,7 @@ async function renderAdminView() {
   
   if (!storedData) {
     console.log('No stored data found');
+    const lang = getLang();
     const errorHTML = `
       <div class="container" style="padding: 40px; text-align: center;">
         <h2 style="color: #e74c3c; margin-bottom: 20px;">No hay datos para mostrar</h2>
@@ -84,7 +192,7 @@ async function renderAdminView() {
         </button>
       </div>
     `;
-    document.getElementById('appContainer').innerHTML = errorHTML;
+    document.getElementById('appContainer').innerHTML = translateHtml(errorHTML, lang);
     return;
   }
   
@@ -93,7 +201,8 @@ async function renderAdminView() {
   
   if (!data.babyName) {
     console.log('No baby name found');
-    document.getElementById('appContainer').innerHTML = `
+    const lang = getLang();
+    const template = `
       <div class="container" style="padding: 40px; text-align: center;">
         <h2 style="color: #e74c3c;">Datos incompletos</h2>
         <p>El formulario parece estar vacío.</p>
@@ -102,6 +211,7 @@ async function renderAdminView() {
         </button>
       </div>
     `;
+    document.getElementById('appContainer').innerHTML = translateHtml(template, lang);
     return;
   }
 
@@ -125,7 +235,9 @@ async function renderAdminView() {
   // Guardar invitación en Firebase con ID, token, categoría y caducidad
   await saveInvitation({ ...data, invitationId, token, category: 'boy', tokenExpiresAt });
 
-  document.getElementById('appContainer').innerHTML = `
+  const lang = getLang();
+  const moreLabel = lang === 'en' ? 'more...' : 'más...';
+  const adminTemplate = `
     <button class="back-btn" onclick="window.location.href='form.html'">←</button>
     
     <div class="admin-view" style="font-family:${fontFamily};">
@@ -200,7 +312,7 @@ async function renderAdminView() {
           </span>
           <ul style="margin: 0; padding-left: 20px; width: 100%;">
             ${(data.gifts || []).slice(0, 5).map(gift => `<li style="margin-bottom: 6px; color: #555;">${gift}</li>`).join('')}
-            ${(data.gifts || []).length > 5 ? `<li style="color: #999; font-style: italic;">+ ${(data.gifts || []).length - 5} más...</li>` : ''}
+            ${(data.gifts || []).length > 5 ? `<li style="color: #999; font-style: italic;">+ ${(data.gifts || []).length - 5} ${moreLabel}</li>` : ''}
           </ul>
         </div>
       </div>
@@ -230,6 +342,7 @@ async function renderAdminView() {
       </div>
     </div>
   `;
+  document.getElementById('appContainer').innerHTML = translateHtml(adminTemplate, lang);
 }
 // VISTA DE INVITADO
 async function renderGuestView(invitationId) {
@@ -238,34 +351,40 @@ async function renderGuestView(invitationId) {
   const invitation = await getInvitation(invitationId);
   
   if (!invitation) {
-    document.getElementById('appContainer').innerHTML = `
+    const lang = getLang();
+    const template = `
       <div class="container" style="text-align: center; padding: 40px;">
         <h2>Invitación no encontrada</h2>
         <p>Esta invitación no existe o ha sido eliminada.</p>
       </div>
     `;
+    document.getElementById('appContainer').innerHTML = translateHtml(template, lang);
     return;
   }
 
   // Validar token si existe en la invitación
   if (invitation.token && t !== invitation.token) {
-    document.getElementById('appContainer').innerHTML = `
+    const lang = getLang();
+    const template = `
       <div class="container" style="text-align: center; padding: 40px;">
         <h2>Enlace inválido</h2>
         <p>Este enlace de invitación no es válido. Pide al organizador el enlace correcto.</p>
       </div>
     `;
+    document.getElementById('appContainer').innerHTML = translateHtml(template, lang);
     return;
   }
 
   // Validar caducidad si está configurada
   if (invitation.tokenExpiresAt && Date.now() > invitation.tokenExpiresAt) {
-    document.getElementById('appContainer').innerHTML = `
+    const lang = getLang();
+    const template = `
       <div class="container" style="text-align: center; padding: 40px;">
         <h2>Enlace vencido</h2>
         <p>La invitación ha caducado. Solicita un nuevo enlace al organizador.</p>
       </div>
     `;
+    document.getElementById('appContainer').innerHTML = translateHtml(template, lang);
     return;
   }
 
@@ -279,7 +398,8 @@ async function renderGuestView(invitationId) {
 
   const heroBackground = `linear-gradient(135deg, ${color} 0%, ${adjustColorBrightness(color, -20)} 100%)`;
 
-  document.getElementById('appContainer').innerHTML = `
+  const lang = getLang();
+  const guestTemplate = `
     <div class="guest-view" style="font-family:${fontFamily}; background:#ffffff;">
       <div class="hero-banner" style="background:${heroBackground};">
         ${effectsOverlay}
@@ -419,6 +539,7 @@ async function renderGuestView(invitationId) {
       </footer>
     </div>
   `;
+  document.getElementById('appContainer').innerHTML = translateHtml(guestTemplate, lang);
 }
 
 // Función para cambiar entre pestañas
@@ -446,8 +567,9 @@ function checkRateLimit(invitationId) {
     if (timeSinceLastConfirmation < RATE_LIMIT_MS) {
       const remainingSeconds = Math.ceil((RATE_LIMIT_MS - timeSinceLastConfirmation) / 1000);
       const minutes = Math.ceil(remainingSeconds / 60);
-      
-      alert(`⏳ Ya confirmaste tu asistencia recientemente. Por favor intenta de nuevo en ${minutes} minuto(s).`);
+      const t = getTexts();
+      const msg = (t.rateLimit || '').replace('{{minutes}}', minutes);
+      alert(msg);
       return false;
     }
   }
@@ -489,15 +611,19 @@ async function submitConfirmation(event, invitationId) {
   if (invitation && invitation.phone) {
     // Crear mensaje de WhatsApp
     const adminPhone = invitation.phone.replace(/\D/g, ''); // Limpiar el teléfono
-    const babyName = invitation.babyName || 'tu bebé';
-    const eventDate = invitation.eventDate ? new Date(invitation.eventDate).toLocaleDateString('es-PE') : '';
-    
-    let message = `Hola, soy ${name}.\n\n`;
-    message += `Confirmo mi asistencia al Baby Shower de ${babyName}`;
+    const babyName = invitation.babyName || (getLang() === 'en' ? 'your baby' : 'tu bebé');
+    const lang = getLang();
+    const locale = lang === 'en' ? 'en-US' : 'es-PE';
+    const eventDate = invitation.eventDate ? new Date(invitation.eventDate).toLocaleDateString(locale) : '';
+    const t = getTexts();
+
+    let message = `${(t.confirmWhatsGreeting || 'Hola, soy {{name}}.').replace('{{name}}', name)}\n\n`;
+    message += `${(t.confirmWhatsBody || 'Confirmo mi asistencia al Baby Shower de {{baby}}').replace('{{baby}}', babyName)}`;
     if (eventDate) message += ` (${eventDate})`;
     message += `.\n\n`;
-    message += `${count} ${count === 1 ? 'persona' : 'personas'}\n`;
-    message += `Contacto: ${phone}`;
+    const countLabel = count === 1 ? (t.confirmWhatsCountSingular || 'persona') : (t.confirmWhatsCountPlural || 'personas');
+    message += `${count} ${countLabel}\n`;
+    message += (t.confirmWhatsContact || 'Contacto: {{phone}}').replace('{{phone}}', phone);
     
     if (userMessage) {
       message += `\n\n${userMessage}`;
@@ -515,16 +641,19 @@ async function submitConfirmation(event, invitationId) {
 function showSuccessMessage(name, count) {
   const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#3498DB';
   const form = document.querySelector('.confirm-form');
+  const t = getTexts();
+  const line1 = (t.successLine1 || '').replace('{{name}}', name);
+  const line2 = (t.successLine2 || '').replace('{{count}}', count);
   const successHTML = `
     <div style="text-align: center; padding: 40px 20px; animation: fadeIn 0.4s ease;">
       <svg width="80" height="80" viewBox="0 0 24 24" fill="none" style="margin: 0 auto 20px;">
         <circle cx="12" cy="12" r="10" fill="${primaryColor}" opacity="0.15"/>
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="${primaryColor}"/>
       </svg>
-      <h3 style="color: ${primaryColor}; font-size: 22px; font-weight: 700; margin: 0 0 8px 0;">Asistencia confirmada</h3>
+      <h3 style="color: ${primaryColor}; font-size: 22px; font-weight: 700; margin: 0 0 8px 0;">${t.successTitle}</h3>
       <p style="color: #6b7280; font-size: 15px; margin: 0; line-height: 1.6;">
-        Gracias <strong style="color: #1f2937;">${name}</strong><br>
-        Se confirmó la asistencia para <strong style="color: #1f2937;">${count} persona(s)</strong>
+        ${line1 || `Gracias <strong style="color: #1f2937;">${name}</strong>`}<br>
+        ${line2 || `Se confirmó la asistencia para <strong style="color: #1f2937;">${count} persona(s)</strong>`}
       </p>
     </div>
   `;
@@ -568,7 +697,7 @@ function showCopyMessage(evt) {
   const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#3498DB';
   const btn = evt.target.closest('.icon-btn');
   const tooltip = document.createElement('div');
-  tooltip.textContent = 'Enlace copiado';
+  tooltip.textContent = getTexts().copyLink;
   tooltip.style.cssText = `
     position: absolute;
     bottom: 100%;
@@ -622,7 +751,9 @@ function shareWhatsApp() {
     return;
   }
   
-  const message = `¡Estás invitado a mi Baby Shower! 👶\n\nMira los detalles aquí:\n${inviteUrl}`;
+  const t = getTexts();
+  const base = t.shareMessage || '¡Estás invitado a mi Baby Shower! 👶\n\nMira los detalles aquí:';
+  const message = `${base}\n${inviteUrl}`;
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
   
   console.log('Compartiendo por WhatsApp:', whatsappUrl);
@@ -1016,8 +1147,11 @@ function getFontFamily(themeId) {
 }
 
 function formatDateTime(date, time) {
-  const dateStr = date ? new Date(date).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }) : '';
-  return dateStr;
+  if (!date && !time) return '';
+  const lang = getLang();
+  const locale = lang === 'en' ? 'en-US' : 'es-ES';
+  const dateStr = date ? new Date(date).toLocaleDateString(locale, { day: '2-digit', month: 'long', year: 'numeric' }) : '';
+  return `${dateStr}${time ? ' - ' + time : ''}`;
 }
 
 function linksBlock(gmaps, waze) {
