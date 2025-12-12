@@ -74,9 +74,16 @@ body {
 
 .header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     position: relative;
-    padding: 0 60px; /* Espacio para el botón atrás */
+    padding: 0 48px;
+}
+
+@media (max-width: 639px) {
+    .header {
+        padding: 0 56px;
+        margin-bottom: 24px;
+    }
 }
 /* Secciones de preview a todo ancho, sin esquinas redondeadas */
 .guest-view,
@@ -203,9 +210,22 @@ body {
 }
 
 .header h2 {
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--text-dark);
+    letter-spacing: -0.02em;
+}
+
+@media (min-width: 640px) {
+    .header h2 {
+        font-size: 1.75rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .header h2 {
+        font-size: 2rem;
+    }
 }
 
 .header p {
@@ -218,6 +238,11 @@ body {
     left: 0;
     top: 50%;
     transform: translateY(-50%);
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
     font-size: 1rem;
@@ -1636,13 +1661,21 @@ body.girl-theme .radio-option:has(input:checked) {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100% - 40px);
-    max-width: 560px;
-    padding: 16px 24px;
+    width: calc(100% - 32px);
+    max-width: 100%;
+    padding: 18px 28px;
     border: none;
     border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+
+@media (min-width: 640px) {
+    .floating-action-btn {
+        max-width: 600px;
+        width: calc(100% - 40px);
+    }
+}
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: inherit;
