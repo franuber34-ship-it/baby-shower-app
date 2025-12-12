@@ -100,19 +100,12 @@
       <p>Efectos seleccionados: <span id="effectCount">0</span>/3</p>
       <div id="selectedEffectsList" class="selected-effects-list"></div>
     </div>
+    <div id="inlineFeedback" class="inline-feedback" aria-live="polite">
+      <span class="dot"></span>
+      <span class="message"></span>
+    </div>
     <button class="floating-action-btn" id="continueBtn">Continuar →</button>
   </div>
   <script src="boy-effects.js"></script>
-  <script>
-    document.getElementById('continueBtn').addEventListener('click', function() {
-      const effects = window.appState?.selectedEffects || [];
-      if (effects.length === 0) {
-        alert('Por favor selecciona al menos un efecto.');
-        return;
-      }
-      localStorage.setItem('boySelectedEffects', JSON.stringify(effects));
-      window.location.href = 'theme.html';
-    });
-  </script>
 </body>
 </html>

@@ -822,7 +822,7 @@ body {
 .effect-option.selected {
     border-color: var(--primary-color);
     background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    transform: scale(1.05);
+    transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
 }
 
@@ -1791,6 +1791,58 @@ body.girl-theme .radio-option:has(input:checked) {
 /* Padding por defecto para todos los contenedores con botones flotantes */
 .container {
     padding-bottom: 120px;
+}
+
+/* Mensajes inline para feedback sin alertas nativas */
+.inline-feedback {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin: 12px auto 0;
+    padding: 12px 14px;
+    max-width: 640px;
+    border-radius: 14px;
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.22);
+    color: #0f172a;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    opacity: 0;
+    transform: translateY(4px);
+}
+
+.inline-feedback.is-visible {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.inline-feedback .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.inline-feedback[data-variant="warn"] {
+    background: rgba(251, 191, 36, 0.12);
+    border-color: rgba(251, 191, 36, 0.45);
+    color: #92400e;
+}
+
+.inline-feedback[data-variant="error"] {
+    background: rgba(248, 113, 113, 0.14);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #991b1b;
+}
+
+.inline-feedback[data-variant="info"] {
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.22);
+    color: #0f172a;
 }
 
 /* Temas para niño/niña en botón flotante */

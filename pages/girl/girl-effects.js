@@ -24,6 +24,71 @@ const floatingEffects = {
     ]
 };
 
+const langMap = {
+    es: {
+        title: 'Efectos Flotantes',
+        desc: 'Personaliza tu invitación seleccionando hasta 3 efectos decorativos',
+        selectedLabel: 'Efectos seleccionados',
+        continue: 'Continuar →',
+        alertMax: 'Solo puedes seleccionar hasta 3 efectos.',
+        alertNone: 'Por favor selecciona al menos un efecto.',
+        pageTitle: 'Efectos - Niña'
+    },
+    en: {
+        title: 'Floating Effects',
+        desc: 'Customize your invitation by selecting up to 3 decorative effects',
+        selectedLabel: 'Selected effects',
+        continue: 'Continue →',
+        alertMax: 'You can only select up to 3 effects.',
+        alertNone: 'Please select at least one effect.',
+        pageTitle: 'Effects - Girl'
+    }
+};
+
+let currentTexts = null;
+let feedbackTimeoutId = null;
+
+function getLang() {
+    return localStorage.getItem('babyShowerLanguage') || 'es';
+}
+
+function applyLanguage() {
+    const lang = getLang();
+    const t = langMap[lang] || langMap.es;
+    const h2 = document.querySelector('.header h2');
+    if (h2) h2.textContent = t.title;
+    const p = document.querySelector('.header p');
+    if (p) p.textContent = t.desc;
+    const selLabel = document.querySelector('.selected-effects p');
+    if (selLabel) {
+        const countSpan = selLabel.querySelector('#effectCount');
+        const countText = countSpan ? countSpan.textContent : '0';
+        selLabel.innerHTML = `${t.selectedLabel}: <span id="effectCount">${countText}</span>/3`;
+    }
+    const btn = document.getElementById('continueBtn');
+    if (btn) btn.textContent = t.continue;
+    document.title = t.pageTitle;
+    currentTexts = t;
+    return t;
+}
+
+function getTexts() {
+    return currentTexts || applyLanguage();
+}
+
+function showFeedback(message, variant = 'warn') {
+    const bar = document.getElementById('inlineFeedback');
+    if (!bar) return;
+    const msg = bar.querySelector('.message');
+    if (msg) msg.textContent = message;
+    bar.dataset.variant = variant;
+    bar.classList.add('is-visible');
+    clearTimeout(feedbackTimeoutId);
+    feedbackTimeoutId = setTimeout(() => {
+        bar.classList.remove('is-visible');
+    }, 2600);
+}
+
 function applySelectedColor() {
     const color = localStorage.getItem('girlSelectedColor') || '#E91E63';
     document.documentElement.style.setProperty('--primary-color', color);
@@ -76,7 +141,8 @@ function toggleEffect(effectId, index) {
         window.appState.selectedEffects.splice(idx, 1);
     } else {
         if (window.appState.selectedEffects.length >= 3) {
-            alert('Solo puedes seleccionar hasta 3 efectos.');
+            const t = getTexts();
+            showFeedback(t.alertMax, 'warn');
             return;
         }
         window.appState.selectedEffects.push(effectId);
@@ -95,7 +161,7 @@ function updateSelectedEffectsUI() {
     }
     
     if (effectCount) {
-        effectCount.textContent = `${window.appState.selectedEffects.length}/3`;
+        effectCount.textContent = `${window.appState.selectedEffects.length}`;
     }
     
     const selectedList = document.getElementById('selectedEffectsList');
@@ -106,4 +172,24 @@ function updateSelectedEffectsUI() {
         }).join(' ');
     }
 }
-document.addEventListener('DOMContentLoaded', renderEffectsOptions);
+document.addEventListener('DOMContentLoaded', () => {
+    const t = applyLanguage();
+    renderEffectsOptions();
+    attachContinueHandler(t);
+});
+
+function attachContinueHandler(t) {
+    const btn = document.getElementById('continueBtn');
+    if (!btn) return;
+    const clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+    clone.addEventListener('click', () => {
+        const effects = window.appState?.selectedEffects || [];
+        if (effects.length === 0) {
+            showFeedback(t.alertNone, 'warn');
+            return;
+        }
+        localStorage.setItem('girlSelectedEffects', JSON.stringify(effects));
+        window.location.href = 'theme.html';
+    });
+}

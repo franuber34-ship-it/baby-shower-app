@@ -1,22 +1,72 @@
 ﻿const themes = [
-    { id: 'classic', name: 'ClÃ¡sico', desc: 'TipografÃ­a tradicional y elegante', fontFamily: 'Georgia, serif' },
+    { id: 'classic', name: 'Clásico', desc: 'Tipografía tradicional y elegante', fontFamily: 'Georgia, serif' },
     { id: 'modern', name: 'Moderno', desc: 'Estilo limpio y actual', fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' },
-    { id: 'playful', name: 'Divertido', desc: 'TipografÃ­a alegre y desenfadada', fontFamily: 'Comic Sans MS, cursive' },
+    { id: 'playful', name: 'Divertido', desc: 'Tipografía alegre y desenfadada', fontFamily: 'Comic Sans MS, cursive' },
     { id: 'elegant', name: 'Elegante', desc: 'Estilo sofisticado y refinado', fontFamily: 'Garamond, serif' },
-    { id: 'bold', name: 'Negrita', desc: 'TipografÃ­a fuerte y llamativa', fontFamily: 'Arial Black, sans-serif' }
+    { id: 'bold', name: 'Negrita', desc: 'Tipografía fuerte y llamativa', fontFamily: 'Arial Black, sans-serif' }
 ];
 window.appState = window.appState || {};
 window.appState.selectedTheme = null;
 
-function applySelectedColor() {
-    const selectedColor = localStorage.getItem('girlSelectedColor') || '#E91E63';
-    document.documentElement.style.setProperty('--primary-color', selectedColor);
-    return selectedColor;
+const langMap = {
+    es: {
+        title: 'Estilo de Invitación',
+        desc: 'Elige el estilo tipográfico que mejor represente tu celebración',
+        continue: 'Continuar →',
+        alertSelect: 'Por favor selecciona un estilo.',
+        pageTitle: 'Estilo - Niña'
+    },
+    en: {
+        title: 'Invitation Style',
+        desc: 'Choose the typography style that best represents your celebration',
+        continue: 'Continue →',
+        alertSelect: 'Please select a style.',
+        pageTitle: 'Style - Girl'
+    }
+};
+
+let currentTexts = null;
+let feedbackTimeoutId = null;
+
+function getLang() {
+    return localStorage.getItem('babyShowerLanguage') || 'es';
+}
+
+function applyLanguage() {
+    const lang = getLang();
+    const t = langMap[lang] || langMap.es;
+    const h2 = document.querySelector('.header h2');
+    if (h2) h2.textContent = t.title;
+    const p = document.querySelector('.header p');
+    if (p) p.textContent = t.desc;
+    const btn = document.getElementById('continueBtn');
+    if (btn) btn.textContent = t.continue;
+    document.title = t.pageTitle;
+    currentTexts = t;
+    return t;
+}
+
+function getTexts() {
+    return currentTexts || applyLanguage();
+}
+
+function showFeedback(message, variant = 'warn') {
+    const bar = document.getElementById('inlineFeedback');
+    if (!bar) return;
+    const msg = bar.querySelector('.message');
+    if (msg) msg.textContent = message;
+    bar.dataset.variant = variant;
+    bar.classList.add('is-visible');
+    clearTimeout(feedbackTimeoutId);
+    feedbackTimeoutId = setTimeout(() => {
+        bar.classList.remove('is-visible');
+    }, 2600);
 }
 
 function renderThemeOptions() {
     const themeOptions = document.getElementById('themeOptions');
-    const selectedColor = applySelectedColor();
+    const selectedColor = localStorage.getItem('girlSelectedColor') || '#E91E63';
+    document.documentElement.style.setProperty('--primary-color', selectedColor);
 
     themeOptions.innerHTML = themes.map((theme, index) => `
         <div class="theme-option" data-theme="${theme.id}" title="${theme.name}" style="font-family: ${theme.fontFamily};">
@@ -34,4 +84,24 @@ function selectTheme(themeId, index) {
         opt.classList.toggle('selected', i === index);
     });
 }
-document.addEventListener('DOMContentLoaded', renderThemeOptions);
+document.addEventListener('DOMContentLoaded', () => {
+    const t = applyLanguage();
+    renderThemeOptions();
+    attachContinueHandler(t);
+});
+
+function attachContinueHandler(t) {
+    const btn = document.getElementById('continueBtn');
+    if (!btn) return;
+    const clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+    clone.addEventListener('click', () => {
+        const theme = window.appState?.selectedTheme;
+        if (!theme) {
+            showFeedback(t.alertSelect, 'warn');
+            return;
+        }
+        localStorage.setItem('girlSelectedTheme', theme);
+        window.location.href = 'form.html';
+    });
+}

@@ -13,19 +13,12 @@
       <h2>Elige el color</h2>
     </div>
     <div id="colorOptions" class="color-grid"></div>
+    <div id="inlineFeedback" class="inline-feedback" aria-live="polite">
+      <span class="dot"></span>
+      <span class="message"></span>
+    </div>
     <button class="floating-action-btn" id="continueBtn">Continuar →</button>
   </div>
   <script src="girl-color.js"></script>
-  <script>
-    document.getElementById('continueBtn').addEventListener('click', function() {
-      const color = window.appState?.selectedColor;
-      if (!color) {
-        alert('Por favor selecciona un color.');
-        return;
-      }
-      localStorage.setItem('girlSelectedColor', color);
-      window.location.href = 'effects.html';
-    });
-  </script>
 </body>
 </html>

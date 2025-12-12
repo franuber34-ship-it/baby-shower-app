@@ -12,19 +12,12 @@
       <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 12px; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.5;">Elige el estilo tipográfico que mejor represente tu celebración</p>
     </div>
     <div id="themeOptions" class="theme-grid"></div>
+    <div id="inlineFeedback" class="inline-feedback" aria-live="polite">
+      <span class="dot"></span>
+      <span class="message"></span>
+    </div>
     <button class="floating-action-btn" id="continueBtn">Continuar →</button>
   </div>
   <script src="girl-theme.js"></script>
-  <script>
-    document.getElementById('continueBtn').addEventListener('click', function() {
-      const theme = window.appState?.selectedTheme;
-      if (!theme) {
-        alert('Por favor selecciona un estilo.');
-        return;
-      }
-      localStorage.setItem('girlSelectedTheme', theme);
-      window.location.href = 'form.html';
-    });
-  </script>
 </body>
 </html>

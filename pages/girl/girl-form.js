@@ -4,6 +4,58 @@ function validatePhoneNumber(phoneNumber) {
   return phoneRegex.test(phoneNumber.replace(/[\s\-\(\)]/g, ''));
 }
 
+// Catálogo minimalista de países (siglas + código) para WhatsApp/SMS
+const countryOptions = [
+  { iso: 'US', code: '+1' },
+  { iso: 'CA', code: '+1' },
+  { iso: 'MX', code: '+52' },
+  { iso: 'BR', code: '+55' },
+  { iso: 'AR', code: '+54' },
+  { iso: 'CO', code: '+57' },
+  { iso: 'PE', code: '+51' },
+  { iso: 'CL', code: '+56' },
+  { iso: 'ES', code: '+34' },
+  { iso: 'FR', code: '+33' },
+  { iso: 'IT', code: '+39' },
+  { iso: 'DE', code: '+49' },
+  { iso: 'PT', code: '+351' },
+  { iso: 'IN', code: '+91' },
+  { iso: 'PH', code: '+63' }
+];
+
+const COUNTRY_STORAGE_KEY = 'invitationCountryCode';
+
+function detectPreferredIso() {
+  const stored = localStorage.getItem(COUNTRY_STORAGE_KEY);
+  if (stored) return stored;
+  const lang = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+  const region = (lang.split('-')[1] || '').toUpperCase();
+  const langCode = (lang.split('-')[0] || '').toLowerCase();
+  const isoFromRegion = countryOptions.find(c => c.iso === region)?.iso;
+  if (isoFromRegion) return isoFromRegion;
+  const langFallback = {
+    es: 'ES', en: 'US', pt: 'BR', fr: 'FR', it: 'IT', de: 'DE', hi: 'IN', tl: 'PH'
+  };
+  return langFallback[langCode] || 'ES';
+}
+
+function renderCountrySelect(selectEl) {
+  if (!selectEl) return;
+  const preferredIso = detectPreferredIso();
+  const sorted = [...countryOptions].sort((a, b) => {
+    if (a.iso === preferredIso) return -1;
+    if (b.iso === preferredIso) return 1;
+    return 0;
+  });
+  selectEl.innerHTML = sorted
+    .map(({ iso, code }) => `<option value="${code}" ${iso === preferredIso ? 'selected' : ''}>${iso} ${code}</option>`)
+    .join('');
+  selectEl.addEventListener('change', () => {
+    const selectedIso = countryOptions.find(c => c.code === selectEl.value)?.iso;
+    if (selectedIso) localStorage.setItem(COUNTRY_STORAGE_KEY, selectedIso);
+  });
+}
+
 function getGirlFormData() {
   return {
     color: localStorage.getItem('girlSelectedColor'),
@@ -30,24 +82,26 @@ document.addEventListener('DOMContentLoaded', function() {
   const selectedColor = localStorage.getItem('girlSelectedColor') || '#E91E63';
   document.documentElement.style.setProperty('--primary-color', selectedColor);
   
-  // Aplicar estilo al selector de país con el color seleccionado
+  // Renderizar selector de país (siglas + código) y aplicar estilo minimalista
   const countrySelect = document.getElementById('countryCode');
+  renderCountrySelect(countrySelect);
   if (countrySelect) {
     countrySelect.style.cssText = `
-      width: 100px;
+      width: 110px;
       padding: 12px 8px;
       border: 2px solid ${selectedColor};
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       color: ${selectedColor};
       background: white;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
+      letter-spacing: 0.02em;
     `;
     countrySelect.addEventListener('focus', function() {
-      this.style.background = `${selectedColor}15`;
-      this.style.boxShadow = `0 0 0 3px ${selectedColor}25`;
+      this.style.background = `${selectedColor}12`;
+      this.style.boxShadow = `0 0 0 3px ${selectedColor}22`;
     });
     countrySelect.addEventListener('blur', function() {
       this.style.background = 'white';
@@ -76,8 +130,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Validar teléfono
     if (!validatePhoneNumber(phoneNumber)) {
-      alert('⚠️ Por favor ingresa un número de teléfono válido (8-15 dígitos)');
+      alert('⚠️ Ingresa un número válido de 8 a 15 dígitos (solo números)');
       document.getElementById('phoneNumber').focus();
+      return;
+    }
+    if (!countryCode) {
+      alert('⚠️ Selecciona un código de país');
+      countrySelect.focus();
       return;
     }
     
