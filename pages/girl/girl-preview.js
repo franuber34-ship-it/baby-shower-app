@@ -48,8 +48,18 @@ const langMap = {
   }
 };
 
+let cachedLang;
 function getLang() {
-  return localStorage.getItem('babyShowerLanguage') || 'es';
+  if (cachedLang) return cachedLang;
+  const params = new URLSearchParams(window.location.search);
+  const paramLang = params.get('lang');
+  if (paramLang && (paramLang === 'en' || paramLang === 'es')) {
+    localStorage.setItem('babyShowerLanguage', paramLang);
+    cachedLang = paramLang;
+    return cachedLang;
+  }
+  cachedLang = localStorage.getItem('babyShowerLanguage') || 'es';
+  return cachedLang;
 }
 
 function getTexts() {
@@ -229,7 +239,7 @@ async function renderAdminView() {
     d.setHours(23, 59, 59, 999);
     tokenExpiresAt = d.getTime();
   }
-  const invitationURL = `${window.location.origin}${window.location.pathname}?id=${invitationId}&t=${token}`;
+  const invitationURL = `${window.location.origin}${window.location.pathname}?id=${invitationId}&t=${token}&lang=${lang}`;
   
   // Guardar invitación en Firebase con ID, token, categoría y caducidad
   await saveInvitation({ ...data, invitationId, token, category: 'girl', tokenExpiresAt });
