@@ -132,10 +132,10 @@ body {
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    margin-top: 16px;
+    margin-top: 0;
     margin-bottom: 24px;
     border-radius: 0;
-    padding: 48px 0 32px;
+    padding: 0 0 32px 0;
     overflow: hidden;
 }
 
@@ -143,9 +143,11 @@ body {
 .hero-banner {
     position: relative;
     width: 100%;
-    min-height: 400px;
+    min-height: 500px;
     overflow: hidden;
     z-index: 1;
+    margin: 0;
+    padding: 0;
 }
 
 /* Contenido interno centrado y consistente */
@@ -155,7 +157,7 @@ body {
     width: min(1200px, 100% - 32px);
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 40px 16px 0 16px;
 }
 
 /* Asegura que las pestañas y su contenido queden centrados y con respiro lateral */
