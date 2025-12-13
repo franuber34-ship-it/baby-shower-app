@@ -257,23 +257,23 @@ async function renderAdminView() {
             <path d="M1.81 9.97c-0.54,0.6 -0.96,1.42 -0.76,2.23 0.09,0.36 0.27,0.68 0.44,0.99 -0.13,-0.02 -0.3,0.05 -0.42,-0.02 -0.11,-0.07 -0.22,-0.14 -0.35,-0.16 -0.13,-0.01 -0.27,0.03 -0.38,0.11 -0.25,0.16 -0.48,0.66 -0.16,0.88 -0.36,0.44 -0.15,1.35 0.33,1.66 0.18,0.12 0.42,0.14 0.64,0.16 0.59,0.03 1.18,0.01 1.77,0.07 0.8,0.08 1.58,0.32 2.38,0.34 0.31,0 0.63,-0.03 0.9,-0.17 0.5,-0.26 0.76,-0.82 0.9,-1.37 0.47,-0.13 0.91,-0.37 1.27,-0.69 0.2,0.48 0.68,0.83 0.78,1.34 0.05,0.23 0.01,0.48 0.11,0.7 0.14,0.31 0.57,0.43 0.85,0.24 -0.02,0.24 0.26,0.46 0.49,0.37 0.03,-0.02 0.06,-0.03 0.09,-0.03 0.05,0 0.08,0.03 0.12,0.06 0.3,0.27 0.75,0.29 1.14,0.2 0.13,-0.03 0.26,-0.01 0.38,-0.09 0.14,-0.09 0.34,-0.06 0.45,0.07 0.04,0.05 0.07,0.11 0.11,0.17 0.06,0.08 0.16,0.13 0.25,0.12 0.1,-0.02 0.19,-0.11 0.18,-0.21 -0.02,-0.07 -0.07,-0.13 -0.11,-0.18 -0.05,-0.06 -0.08,-0.15 -0.04,-0.21 0.18,0.11 0.43,0.11 0.56,0.27 0.03,0.04 0.05,0.09 0.09,0.13 0.07,0.06 0.17,0.07 0.26,0.05 0.04,-0.01 0.08,-0.03 0.11,-0.06 0.03,-0.03 0.04,-0.08 0.01,-0.11 0.06,0.01 0.13,0.02 0.19,0 0.06,-0.02 0.12,-0.07 0.12,-0.13 0,-0.05 -0.03,-0.08 -0.05,-0.12 -0.08,-0.11 -0.16,-0.23 -0.23,-0.34 -0.05,-0.07 -0.06,-0.14 -0.1,-0.22 -0.14,-0.28 -0.45,-0.47 -0.76,-0.48 -0.23,-0.01 -0.45,0.06 -0.67,0.04 0.02,-0.09 -0.05,-0.18 -0.12,-0.24 -0.07,-0.06 -0.15,-0.11 -0.2,-0.19 -0.07,-0.1 -0.07,-0.23 -0.06,-0.36 0.1,0.12 0.24,0.2 0.38,0.27 0.19,0.09 0.43,0.15 0.6,0.02 0.06,-0.05 0.12,-0.15 0.05,-0.18 0.25,0 0.49,-0.01 0.74,-0.04 0.03,0 0.06,-0.01 0.09,0.01 0.02,0.02 0.03,0.04 0.03,0.07 0.04,0.1 0.11,0.2 0.22,0.23 0.1,0.03 0.24,-0.06 0.21,-0.16 0.03,0.09 0.13,0.15 0.23,0.13 0.09,-0.02 0.16,-0.11 0.16,-0.21 -0.01,-0.02 -0.01,-0.05 -0.01,-0.08 0,-0.07 0.05,-0.13 0.09,-0.19 0.07,-0.14 0.03,-0.32 -0.08,-0.44 -0.1,-0.12 -0.26,-0.18 -0.41,-0.19 -0.2,-0.02 -0.42,0.03 -0.59,-0.06 -0.06,-0.04 -0.08,-0.06 -0.13,-0.1 0.07,-0.25 0.13,-0.49 0.2,-0.73 0.04,-0.13 0.07,-0.26 0.02,-0.39 -0.03,-0.08 -0.1,-0.14 -0.14,-0.21 -0.12,-0.2 -0.08,-0.45 -0.07,-0.68 0.05,-0.66 -0.16,-1.33 -0.56,-1.85 -0.1,-0.13 -0.21,-0.25 -0.27,-0.41 -0.14,-0.36 0.08,-0.77 0.1,-1.16 0.01,-0.5 -0.31,-0.94 -0.61,-1.34 -0.25,-0.33 0.51,-0.45 0.72,-0.48 0.14,-0.03 0.29,-0.04 0.42,-0.09 0.37,-0.14 0.73,-0.54 0.89,-0.9 0.13,-0.31 0.17,-0.67 0.12,-1.01 -0.05,-0.33 -0.29,-0.6 -0.33,-0.91 -0.06,-0.43 0.07,-0.86 0.01,-1.29 -0.08,-0.65 -0.53,-1.36 -1.05,-1.75 -0.64,-0.48 -1.46,-0.68 -2.26,-0.67 -1.01,0.01 -2.07,0.38 -2.66,1.24 -0.37,0.56 -0.54,1.25 -0.48,1.92 0.04,0.51 0.19,1.01 0.38,1.49 0.11,0.29 0.23,0.59 0.27,0.9 -0.18,0.02 -0.3,0.15 -0.4,0.31 -0.09,0.15 -0.15,0.32 -0.26,0.46 -0.14,0.22 -0.37,0.37 -0.59,0.5 -1.01,0.59 -2.14,0.83 -3.17,1.36 -0.82,0.42 -1.57,0.97 -2.22,1.62 -0.05,0.05 -0.1,0.11 -0.15,0.17z"/>
           </svg>
           
-          <div class="main-announcement">¡ES UN NIÑO!</div>
+          <div class="main-announcement" style="font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; letter-spacing: 2px; text-shadow: 0 4px 12px rgba(0,0,0,0.25); color: white;">¡ES UN NIÑO!</div>
           
-          <div class="parents-names">LOS FUTUROS PAPÁS</div>
-          <div class="celebration-text">${data.fatherName} & ${data.motherName}</div>
+          <div class="parents-names" style="font-size: 0.85rem; font-weight: 300; letter-spacing: 3px; opacity: 0.9; margin: 4px 0;">LOS FUTUROS PAPÁS</div>
+          <div class="celebration-text" style="font-size: 1.4rem; font-weight: 600; margin: 2px 0 12px 0;">${data.fatherName} & ${data.motherName}</div>
           
-          <div class="celebration-text">Te invitan a celebrar la llegada de</div>
+          <div class="celebration-text" style="font-size: 1rem; margin-bottom: 8px; opacity: 0.95; font-weight: 300;">Te invitan a celebrar la llegada de</div>
           
-          <div class="baby-name-highlight" style="font-size: 2.8rem; margin: 24px 0; text-shadow: 0 2px 8px rgba(0,0,0,0.2); color: #ffffff;">${data.babyName}</div>
+          <div class="baby-name-highlight" style="font-size: 2.8rem; margin: 12px 0 16px 0; text-shadow: 0 2px 8px rgba(0,0,0,0.2); color: #ffffff; font-weight: 900;">${data.babyName}</div>
           
-          <div class="event-details" style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+          <div class="event-details" style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.3);">
             <div class="event-detail-item" style="display: flex; align-items: center; gap: 12px; justify-content: center;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="white" style="flex-shrink: 0;">
                 <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
               </svg>
               <span style="font-size: 1.1rem;">${formatDateTime(data.eventDate, data.eventTime)}</span>
             </div>
-            <div class="event-detail-item" style="display: flex; align-items: center; gap: 12px; justify-content: center; margin-top: 8px;">
+            <div class="event-detail-item" style="display: flex; align-items: center; gap: 12px; justify-content: center;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="white" style="flex-shrink: 0;">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
               </svg>
@@ -463,14 +463,12 @@ async function renderGuestView(invitationId) {
       
       <div id="messageTab" class="tab-content active">
         <div class="tab-content-card">
-          <h3 class="section-title">${iconSVG('message', '#333')} Mensaje</h3>
-          <div class="message-content" style="background:#f8fafc; padding:16px 18px; border-radius:10px;">${data.invitationMessage || 'Será un placer contar con tu presencia en este día tan especial. ¡Tu compañía hará este momento inolvidable!'}</div>
+          <div class="message-content" style="background:#f8fafc; padding:20px; border-radius:10px; line-height: 1.6;">${data.invitationMessage || 'Será un placer contar con tu presencia en este día tan especial. ¡Tu compañía hará este momento inolvidable!'}</div>
         </div>
       </div>
       
       <div id="locationTab" class="tab-content">
         <div class="tab-content-card">
-          <h3 class="section-title">${iconSVG('pin', '#333')} Ubicación</h3>
           <div class="location-info">
             ${data.address ? `<div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--primary-color, #3498DB)" style="flex-shrink: 0; margin-top: 2px;">
@@ -480,13 +478,13 @@ async function renderGuestView(invitationId) {
                 <p style="margin: 0; font-size: 15px; color: #1f2937; font-weight: 500;">${data.address}</p>
               </div>
             </div>` : ''}
-            ${data.address ? `<div style="border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.1); margin-bottom:16px;">
-              <iframe title="Mapa" width="100%" height="260" style="border:0;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+            ${data.address ? `<div style="border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.1); margin-bottom:16px; width: 100%;">
+              <iframe title="Mapa" width="100%" height="280" style="border:0;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
                 src="https://www.google.com/maps?q=${encodeURIComponent(data.googleMapsLink || data.address)}&output=embed"></iframe>
             </div>` : ''}
-            <div class="map-buttons">
-              ${data.googleMapsLink || data.address ? `<button class="btn btn-primary" onclick="window.open('${data.googleMapsLink || 'https://www.google.com/maps?q=' + encodeURIComponent(data.address)}', '_blank')">${iconSVG('map', 'white')} Abrir en Google Maps</button>` : ''}
-              ${data.wazeLink ? `<button class="btn btn-secondary" onclick="window.open('${data.wazeLink}', '_blank')">${iconSVG('car', 'white')} Abrir en Waze</button>` : ''}
+            <div class="map-buttons" style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+              ${data.googleMapsLink || data.address ? `<button class="btn btn-primary" style="width: 100%;" onclick="window.open('${data.googleMapsLink || 'https://www.google.com/maps?q=' + encodeURIComponent(data.address)}', '_blank')">${iconSVG('map', 'white')} Abrir en Google Maps</button>` : ''}
+              ${data.wazeLink ? `<button class="btn btn-secondary" style="width: 100%;" onclick="window.open('${data.wazeLink}', '_blank')">${iconSVG('car', 'white')} Abrir en Waze</button>` : ''}
             </div>
           </div>
         </div>
@@ -494,37 +492,35 @@ async function renderGuestView(invitationId) {
       
       <div id="giftsTab" class="tab-content">
         <div class="tab-content-card">
-          <h3 class="section-title">${iconSVG('gift', '#333')} Lista de Regalos</h3>
-          <ul class="gift-list">
-            ${(data.gifts || []).map(gift => `<li class="gift-item" style="display:flex; align-items:center; gap:10px;">${iconSVG('gift', 'var(--primary-color, #3498DB)')} <span>${gift}</span></li>`).join('')}
+          <ul class="gift-list" style="list-style: none; padding: 0; margin: 0;">
+            ${(data.gifts || []).map(gift => `<li class="gift-item" style="display:flex; align-items:center; gap:15px; padding: 14px 0; border-bottom: 1px solid #f0f0f0;">${iconSVG('gift', 'var(--primary-color, #3498DB)')} <span style="font-size: 16px;">${gift}</span></li>`).join('')}
           </ul>
         </div>
       </div>
       
       <div id="confirmTab" class="tab-content">
         <div class="tab-content-card">
-          <h3 class="section-title">${iconSVG('check', '#333')} Confirmar Asistencia</h3>
-          <div class="confirm-status">
-            <p><strong class="confirmed-count">${confirmedTotal}</strong> personas confirmadas</p>
+          <div class="confirm-status" style="background: var(--bg-light); padding: 16px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+            <p style="margin: 0; font-size: 18px;"><strong class="confirmed-count" style="color: var(--primary-color, #3498DB); font-size: 28px;">0</strong> <br><span style="font-size: 14px; color: var(--text-light);">personas confirmadas</span></p>
           </div>
-          <form class="confirm-form" onsubmit="submitConfirmation(event, '${invitationId}')">
+          <form class="confirm-form" onsubmit="submitConfirmation(event, '${invitationId}')" style="display: flex; flex-direction: column; gap: 14px;">
             <div class="form-group">
-              <label class="form-label">NOMBRE COMPLETO</label>
-              <input type="text" class="form-input" placeholder="Tu nombre" required>
+              <label class="form-label" style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-light); text-transform: uppercase;">NOMBRE COMPLETO</label>
+              <input type="text" class="form-input" placeholder="Tu nombre" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
             </div>
             <div class="form-group">
-              <label class="form-label">TELÉFONO</label>
-              <input type="tel" class="form-input" placeholder="Tu número de teléfono" required>
+              <label class="form-label" style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-light); text-transform: uppercase;">TELÉFONO</label>
+              <input type="tel" class="form-input" placeholder="Tu número de teléfono" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
             </div>
             <div class="form-group">
-              <label class="form-label">¿CUÁNTAS PERSONAS ASISTIRÁN?</label>
-              <input type="number" class="form-input" min="1" value="1" required>
+              <label class="form-label" style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-light); text-transform: uppercase;">¿CUÁNTAS PERSONAS ASISTIRÁN?</label>
+              <input type="number" class="form-input" min="1" value="1" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
             </div>
             <div class="form-group">
-              <label class="form-label">MENSAJE PARA LOS PAPITOS</label>
-              <textarea class="form-input" name="message" rows="3" placeholder="Escribe un mensaje para los futuros papás (opcional)" style="resize: vertical; font-family: inherit;"></textarea>
+              <label class="form-label" style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-light); text-transform: uppercase;">MENSAJE PARA LOS PAPITOS</label>
+              <textarea class="form-input" name="message" rows="3" placeholder="Escribe un mensaje para los futuros papás (opcional)" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; resize: vertical; font-family: inherit;"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%; display:flex; align-items:center; gap:8px; justify-content:center;">
+            <button type="submit" class="btn btn-primary" style="width: 100%; display:flex; align-items:center; gap:8px; justify-content:center; padding: 14px; font-weight: 600; margin-top: 8px;">
               ${iconSVG('check', 'white')} CONFIRMAR ASISTENCIA
             </button>
           </form>

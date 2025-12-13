@@ -13,6 +13,12 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
+    @media (max-width: 640px) {
+      body {
+        padding: 12px;
+      }
+    }
+
     .dashboard-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -25,8 +31,9 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       margin-bottom: 30px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 16px;
+      align-items: stretch;
     }
 
     .dashboard-header-content {
@@ -46,6 +53,34 @@
       font-size: 1rem;
     }
 
+    @media (max-width: 768px) {
+      .dashboard-header {
+        padding: 20px;
+      }
+
+      .dashboard-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .dashboard-header p {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .dashboard-header {
+        padding: 16px;
+      }
+
+      .dashboard-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .dashboard-header p {
+        font-size: 0.9rem;
+      }
+    }
+
     .logout-btn {
       background: white;
       color: #667eea;
@@ -58,7 +93,9 @@
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
+      width: 100%;
     }
 
     .logout-btn svg {
@@ -72,6 +109,12 @@
       border-color: #667eea;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    }
+
+    @media (min-width: 641px) {
+      .logout-btn {
+        width: auto;
+      }
     }
 
     .dashboard-grid {
@@ -95,11 +138,38 @@
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
     }
 
+    @media (max-width: 768px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .invitation-card {
+        padding: 20px;
+      }
+
+      .invitation-card:hover {
+        transform: translateY(-4px);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .dashboard-grid {
+        gap: 12px;
+      }
+
+      .invitation-card {
+        padding: 16px;
+      }
+    }
+
     .card-header {
       display: flex;
       justify-content: space-between;
-      align-items: start;
+      align-items: flex-start;
       margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .card-title {
@@ -107,6 +177,8 @@
       font-weight: 700;
       color: #333;
       margin: 0;
+      flex: 1;
+      min-width: 150px;
     }
 
     .card-color {
@@ -114,6 +186,24 @@
       height: 40px;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .card-title {
+        font-size: 1.3rem;
+        width: 100%;
+      }
+
+      .card-color {
+        width: 32px;
+        height: 32px;
+      }
     }
 
     .card-info {
@@ -127,6 +217,8 @@
       border-bottom: 1px solid #eee;
       font-size: 0.95rem;
       color: #666;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .info-row:last-child {
@@ -136,6 +228,18 @@
     .info-label {
       font-weight: 600;
       color: #333;
+      min-width: 80px;
+    }
+
+    @media (max-width: 640px) {
+      .info-row {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .info-label {
+        font-size: 0.85rem;
+      }
     }
 
     .confirmations-badge {
@@ -155,6 +259,7 @@
       margin-top: 16px;
       padding-top: 16px;
       border-top: 1px solid #eee;
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -171,6 +276,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      min-width: 100px;
     }
 
     .btn svg {
@@ -195,6 +301,35 @@
 
     .btn-secondary:hover {
       background: #e0e0e0;
+    }
+
+    .btn-tertiary {
+      background: #f3f4f6;
+      color: #333;
+      border: 1px solid #e5e7eb;
+    }
+
+    .btn-tertiary:hover {
+      background: #e5e7eb;
+      border-color: #d1d5db;
+    }
+
+    @media (max-width: 640px) {
+      .card-actions {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 0.85rem;
+      }
+
+      .btn svg {
+        width: 14px;
+        height: 14px;
+      }
     }
 
     .empty-state {
@@ -297,6 +432,14 @@
       overflow-y: auto;
     }
 
+    @media (max-width: 640px) {
+      .modal-content {
+        padding: 20px;
+        max-width: 95%;
+        border-radius: 10px;
+      }
+    }
+
     .modal-header {
       display: flex;
       justify-content: space-between;
@@ -358,6 +501,8 @@
       font-weight: 600;
       transition: all 0.3s ease;
       box-shadow: 0 4px 12px rgba(102, 126, 234, 0.12);
+      width: 100%;
+      justify-content: center;
     }
 
     .back-button svg {
@@ -370,6 +515,13 @@
       background: white;
       border-color: #667eea;
       transform: translateY(-2px);
+    }
+
+    @media (min-width: 641px) {
+      .back-button {
+        width: auto;
+        justify-content: flex-start;
+      }
     }
   </style>
 </head>
