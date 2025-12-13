@@ -231,10 +231,12 @@ async function renderAdminView() {
   // Generar URL única de invitación con token corto
   const invitationId = generateInvitationId();
   const token = (typeof window.generateShortToken === 'function') ? window.generateShortToken(8) : Math.random().toString(36).slice(2, 10);
-  // Caducidad del token: fin del día del evento (si existe), si no 30 días desde hoy
+  // Caducidad del token: 30 días después del evento (si existe), si no 30 días desde hoy
   let tokenExpiresAt = Date.now() + 30 * 24 * 60 * 60 * 1000;
   if (data.eventDate) {
     const d = new Date(data.eventDate);
+    // Agregar 30 días después del evento para que el enlace sea accesible después
+    d.setDate(d.getDate() + 30);
     d.setHours(23, 59, 59, 999);
     tokenExpiresAt = d.getTime();
   }
