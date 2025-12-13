@@ -734,20 +734,33 @@ function showCopyMessage(evt) {
 }
 
 function shareWhatsApp() {
-  // Obtener la URL del input si existe, o construirla desde la ubicación actual
+  // Obtener la URL del elemento #invitationURL
   let inviteUrl = '';
   
   const urlElement = document.getElementById('invitationURL');
   if (urlElement) {
-    inviteUrl = urlElement.textContent || urlElement.value || '';
+    inviteUrl = (urlElement.textContent || urlElement.value || '').trim();
   }
   
-  // Si no hay URL en el elemento, usar la URL actual de la página
+  // Si aún no hay URL, intentar construirla desde los parámetros de la URL actual
+  if (!inviteUrl) {
+    const params = new URLSearchParams(window.location.search);
+    const invId = params.get('id');
+    const token = params.get('t');
+    const lang = params.get('lang') || 'es';
+    
+    if (invId && token) {
+      inviteUrl = `${window.location.origin}${window.location.pathname}?id=${invId}&t=${token}&lang=${lang}`;
+    }
+  }
+  
+  // Si aún no hay URL, usar la ubicación actual
   if (!inviteUrl) {
     inviteUrl = window.location.href;
   }
   
   if (!inviteUrl) {
+    alert('Error: No se pudo obtener la URL de la invitación');
     console.error('URL de invitación no disponible');
     return;
   }
