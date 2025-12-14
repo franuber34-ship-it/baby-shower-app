@@ -154,10 +154,10 @@ body {
 .invitation-card-header,
 .tabs-navigation,
 .tab-content-card {
-    width: min(1200px, 100% - 32px);
-    max-width: 1200px;
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 40px 16px 0 16px;
+    padding: 40px 20px 0 20px;
 }
 
 /* Asegura que las pestañas y su contenido queden centrados y con respiro lateral */
@@ -174,16 +174,14 @@ body {
 }
 
 .tabs-navigation::-webkit-scrollbar {
-    height: 4px;
+    display: none;
+    width: 0;
+    height: 0;
 }
 
-.tabs-navigation::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.tabs-navigation::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 2px;
+.tabs-navigation {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
 }
 
 .tab-button {

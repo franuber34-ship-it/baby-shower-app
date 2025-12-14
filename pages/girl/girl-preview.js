@@ -19,7 +19,7 @@ const langMap = {
     adminError: 'Error al cargar la vista. Por favor intenta de nuevo.',
     guestError: 'Error al cargar la invitación. Por favor intenta de nuevo.',
     copyLink: 'Enlace copiado',
-    shareMessage: '¡Estás invitado a mi Baby Shower! 👶\n\nMira los detalles aquí:',
+    shareMessage: '¡Estás invitada a mi Baby Shower! 👶\n\nMira los detalles aquí:',
     rateLimit: '⏳ Ya confirmaste tu asistencia recientemente. Por favor intenta de nuevo en {{minutes}} minuto(s).',
     successTitle: 'Asistencia confirmada',
     successLine1: 'Gracias {{name}}',
@@ -65,6 +65,30 @@ function getLang() {
 function getTexts() {
   const lang = getLang();
   return langMap[lang] || langMap.es;
+}
+
+let shareContext = {};
+function setShareContext(partial) {
+  shareContext = { ...shareContext, ...partial };
+}
+
+function getShareUrl() {
+  const urlElement = document.getElementById('invitationURL');
+  const fromDom = (urlElement?.textContent || urlElement?.value || '').trim();
+  if (fromDom) return fromDom;
+
+  if (shareContext.invitationURL) return shareContext.invitationURL;
+
+  const params = new URLSearchParams(window.location.search);
+  const invId = params.get('id') || shareContext.invitationId;
+  const token = params.get('t') || shareContext.token;
+  const lang = params.get('lang') || shareContext.lang || getLang();
+
+  if (invId && token) {
+    return `${window.location.origin}${window.location.pathname}?id=${invId}&t=${token}&lang=${lang}`;
+  }
+
+  return window.location.href;
 }
 
 function translateHtml(html, lang) {
@@ -241,6 +265,7 @@ async function renderAdminView() {
     tokenExpiresAt = d.getTime();
   }
   const invitationURL = `${window.location.origin}${window.location.pathname}?id=${invitationId}&t=${token}&lang=${lang}`;
+  setShareContext({ invitationURL, invitationId, token, lang, babyName: data.babyName, fatherName: data.fatherName, motherName: data.motherName });
   
   // Guardar invitación en Firebase con ID, token, categoría y caducidad
   await saveInvitation({ ...data, invitationId, token, category: 'girl', tokenExpiresAt });
@@ -327,7 +352,7 @@ async function renderAdminView() {
       </div>
 
       <div class="share-section">
-        <h2 class="summary-title">Compartir</h2>
+        <h2 class="summary-title">Compartir Invitación</h2>
         <div class="invitation-url" id="invitationURL">${invitationURL}</div>
         
         <div class="icon-button-group">
@@ -402,6 +427,7 @@ async function renderGuestView(invitationId) {
   const color = applySelectedColor(data.color);
   const fontFamily = getFontFamily(data.theme);
   const effectsOverlay = buildEffectsOverlay(data.effects || [], color);
+  setShareContext({ invitationURL: window.location.href, invitationId, token: t, lang: getLang() });
   // Los invitados no pueden leer confirmaciones (reglas de Firebase requieren auth)
   // Solo el admin puede ver el total; invitados solo pueden escribir su confirmación
   const confirmedTotal = 0;
@@ -466,7 +492,7 @@ async function renderGuestView(invitationId) {
       
       <div id="messageTab" class="tab-content active">
         <div class="tab-content-card">
-          <div class="message-content" style="background:#f8fafc; padding:20px; border-radius:10px; line-height: 1.6;">${data.invitationMessage || 'Será un placer contar con tu presencia en este día tan especial. ¡Tu compañía hará este momento inolvidable!'}</div>
+          <div class="message-content" style="padding:24px 16px; line-height: 1.8; font-size: 16px; color: #374151; text-align: center;">${data.invitationMessage || 'Será un placer contar con tu presencia en este día tan especial. ¡Tu compañía hará este momento inolvidable!'}</div>
         </div>
       </div>
       
@@ -690,9 +716,27 @@ function refreshConfirmationCount(invitationId) {
 }
 
 function copyToClipboard(evt) {
-  const urlText = document.getElementById('invitationURL').textContent;
+  const urlText = getShareUrl();
+  if (!urlText) {
+    alert('No se pudo obtener la URL de la invitación');
+    return;
+  }
   navigator.clipboard.writeText(urlText).then(() => {
     showCopyMessage(evt);
+  }).catch(err => {
+    console.warn('No se pudo usar navigator.clipboard, usando fallback:', err);
+    try {
+      const temp = document.createElement('textarea');
+      temp.value = urlText;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      temp.remove();
+      showCopyMessage(evt);
+    } catch (fallbackErr) {
+      console.error('No se pudo copiar el enlace', fallbackErr);
+      alert('No se pudo copiar el enlace. Intenta copiarlo manualmente.');
+    }
   });
 }
 
@@ -736,42 +780,38 @@ function showCopyMessage(evt) {
 }
 
 function shareWhatsApp() {
-  // Obtener la URL del elemento #invitationURL
-  let inviteUrl = '';
-  
-  const urlElement = document.getElementById('invitationURL');
-  if (urlElement) {
-    inviteUrl = (urlElement.textContent || urlElement.value || '').trim();
-  }
-  
-  // Si aún no hay URL, intentar construirla desde los parámetros de la URL actual
-  if (!inviteUrl) {
-    const params = new URLSearchParams(window.location.search);
-    const invId = params.get('id');
-    const token = params.get('t');
-    const lang = params.get('lang') || 'es';
-    
-    if (invId && token) {
-      inviteUrl = `${window.location.origin}${window.location.pathname}?id=${invId}&t=${token}&lang=${lang}`;
-    }
-  }
-  
-  // Si aún no hay URL, usar la ubicación actual
-  if (!inviteUrl) {
-    inviteUrl = window.location.href;
-  }
-  
+  const inviteUrl = getShareUrl();
   if (!inviteUrl) {
     alert('Error: No se pudo obtener la URL de la invitación');
     console.error('URL de invitación no disponible');
     return;
   }
+
   const t = getTexts();
-  const base = t.shareMessage || '¡Estás invitada a mi Baby Shower! 👶\n\nMira los detalles aquí:';
-  const message = `${base}\n${inviteUrl}`;
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  const lang = getLang();
+  const babyName = shareContext.babyName || 'Baby';
+  const fatherName = shareContext.fatherName || '';
+  const motherName = shareContext.motherName || '';
+  const parentsText = (fatherName || motherName) ? `${fatherName} y ${motherName}` : 'los papas';
   
+  let message;
+  if (lang === 'en') {
+    message = `💖 Baby Shower Invitation 💖\n\n${fatherName} and ${motherName} invite you with love to celebrate the arrival of\n\n👶 ${babyName} 👶\n\n📅 Details and RSVP here:\n${inviteUrl}\n\nWe hope to see you there! 💕`;
+  } else {
+    message = `💖 Invitacion a Baby Shower 💖\n\n${parentsText} te invitan con mucho carino a celebrar la llegada de\n\n👶 ${babyName} 👶\n\n📅 Detalles y confirmacion aqui:\n${inviteUrl}\n\n¡Esperamos verte ahi! 💕`;
+  }
+  
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+
   console.log('Compartiendo por WhatsApp:', whatsappUrl);
+  if (navigator.share) {
+    navigator.share({ text: message }).catch(err => {
+      console.warn('navigator.share falló, se abre WhatsApp:', err);
+      window.open(whatsappUrl, '_blank');
+    });
+    return;
+  }
+
   window.open(whatsappUrl, '_blank');
 }
 
